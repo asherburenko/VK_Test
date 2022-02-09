@@ -9,15 +9,31 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
+    @IBOutlet weak var loginTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollViewTitle: UIScrollView!
+    
+    let fromLoginToTabBarId = "fromLoginToTabBarId"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tapOnGestures()
         notificationKayboard()
     }
-
+    
+    @IBAction func loginButtonPressed(_ sender: UIButton) {
+        guard let login = self.loginTextField.text,
+              login == "",
+              let password = self.passwordTextField.text,
+              password == ""
+        else {
+            print("Error")
+            return
+        }
+        
+        performSegue(withIdentifier: fromLoginToTabBarId, sender: nil)
+       }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
