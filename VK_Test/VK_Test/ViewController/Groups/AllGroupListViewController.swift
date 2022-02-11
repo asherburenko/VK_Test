@@ -11,7 +11,7 @@ class AllGroupListViewController: UIViewController {
 
     @IBOutlet weak var allGroupListTableView: UITableView!
     
-    let groupsAndFriendsCellIdentifier = "groupsAndFriendsCellIdentifier"
+    let groupsCellIdentifier = "groupsCellIdentifier"
     var groupsArray = [Group]()
     
     override func viewDidLoad() {
@@ -30,9 +30,9 @@ extension AllGroupListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: groupsAndFriendsCellIdentifier, for: indexPath) as? GroupsAndFriendsTableViewCell else { return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: groupsCellIdentifier, for: indexPath) as? GroupsAndFriendsTableViewCell else { return UITableViewCell()}
         
-        cell.setData(group: groupsArray[indexPath.row])
+        cell.setDataGroupList(group: groupsArray[indexPath.row])
         return cell
     }
 }
@@ -64,6 +64,6 @@ extension AllGroupListViewController {
 
 extension AllGroupListViewController {
     func registerTableView() {
-        allGroupListTableView.register(UINib(nibName: "GroupsAndFriendsTableViewCell", bundle: nil), forCellReuseIdentifier: groupsAndFriendsCellIdentifier)
+        allGroupListTableView.register(UINib(nibName: "GroupsAndFriendsTableViewCell", bundle: nil), forCellReuseIdentifier: groupsCellIdentifier)
     }
 }

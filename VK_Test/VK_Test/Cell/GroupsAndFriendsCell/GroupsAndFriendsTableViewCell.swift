@@ -30,12 +30,22 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         imageViewCell.image = nil
     }
     
-    func setData (group: Group) {
+    func setDataGroupList(group: Group) {
         if let avatarPath = group.avatarImagePath {
             imageViewCell.image = UIImage(named: avatarPath)
         }
         titleLabelCell.text = group.name
         descriptionLabelCell.text = group.description
+    }
+    
+    func setDataFriendsList(friendsList: FriendsList) {
+        if let avatarPath = friendsList.avatarImagePath {
+            imageViewCell.image = UIImage(named: avatarPath)
+        }
+        titleLabelCell.text = friendsList.name
+        descriptionLabelCell.text = friendsList.messadge
+        titleLabelCell.textColor = .white
+        descriptionLabelCell.textColor = .lightGray
     }
     
 }

@@ -187,12 +187,24 @@
         <!--My Friends-->
         <scene sceneID="5Ml-ta-tNi">
             <objects>
-                <viewController id="ypW-Iu-HMy" sceneMemberID="viewController">
+                <viewController id="ypW-Iu-HMy" customClass="FriendsListViewController" customModule="VK_Test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rox-vB-iPs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1M6-Jj-4eS">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="fsd-db-FuU"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fsd-db-FuU" firstAttribute="trailing" secondItem="1M6-Jj-4eS" secondAttribute="trailing" id="CMf-wm-aCS"/>
+                            <constraint firstItem="fsd-db-FuU" firstAttribute="bottom" secondItem="1M6-Jj-4eS" secondAttribute="bottom" id="DFS-Xf-zsU"/>
+                            <constraint firstItem="1M6-Jj-4eS" firstAttribute="leading" secondItem="fsd-db-FuU" secondAttribute="leading" id="m6p-Ul-0eY"/>
+                            <constraint firstItem="1M6-Jj-4eS" firstAttribute="top" secondItem="fsd-db-FuU" secondAttribute="top" id="qPi-Ol-hI1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Friends" id="Ng3-bX-Fle">
                         <barButtonItem key="rightBarButtonItem" title="Galery" id="OsB-cb-JzR">
@@ -202,6 +214,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="friendsListTableView" destination="1M6-Jj-4eS" id="LMf-j4-OzU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYU-xx-P4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
