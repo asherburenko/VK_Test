@@ -36,6 +36,8 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         }
         titleLabelCell.text = group.name
         descriptionLabelCell.text = group.description
+        titleLabelCell.textColor = .white
+        descriptionLabelCell.textColor = .lightGray
     }
     
     func setDataFriendsList(friendsList: FriendsList) {

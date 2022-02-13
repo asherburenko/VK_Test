@@ -35,8 +35,6 @@ extension FriendsListViewController: UITableViewDataSource {
         cell.setDataFriendsList(friendsList: friendsListArray[indexPath.row])
         return cell
     }
-    
-    
 }
 
 extension FriendsListViewController: UITableViewDelegate {
@@ -61,6 +59,17 @@ extension FriendsListViewController {
         friendsListArray.append(friend4)
         let friend5 = FriendsList(avatarImagePath: "uillSmith", name: "Uill Smith", messadge: "How are you?")
         friendsListArray.append(friend5)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Friends"
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            friendsListArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+        }
     }
 }
 

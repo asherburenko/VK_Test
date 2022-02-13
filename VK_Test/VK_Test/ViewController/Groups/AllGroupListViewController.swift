@@ -60,6 +60,10 @@ extension AllGroupListViewController {
         let group5 = Group(avatarImagePath: "motocicle", name: "Motocicle funs", description: nil)
         groupsArray.append(group5)
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "All Group"
+    }
 }
 
 extension AllGroupListViewController {
