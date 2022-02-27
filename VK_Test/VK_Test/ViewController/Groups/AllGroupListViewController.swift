@@ -11,15 +11,20 @@ class AllGroupListViewController: UIViewController {
 
     @IBOutlet weak var allGroupListTableView: UITableView!
     
+    @IBOutlet weak var allGroupSearchBar: UISearchBar!
+    
     let groupsCellIdentifier = "groupsCellIdentifier"
     var groupsArray = [Group]()
+    var sourceGroupsArray = [Group]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         allGroupListTableView.dataSource = self
         allGroupListTableView.delegate = self
+        allGroupSearchBar.delegate = self
         registerTableView()
         createGroupsArray()
+        groupsArray = sourceGroupsArray
         allGroupListTableView.reloadData()
     }
 }
@@ -44,21 +49,35 @@ extension AllGroupListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected \(groupsArray[indexPath.row].name) group")
+        
+        NotificationCenter.default.post(name: allGroupsRowPressed, object: groupsArray[indexPath.row])
+    }
+    
+}
+
+extension AllGroupListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            groupsArray = sourceGroupsArray
+        } else {
+            groupsArray = sourceGroupsArray.filter({ groupItem in groupItem.name.lowercased().contains(searchText.lowercased())})
+        }
+        allGroupListTableView.reloadData()
     }
 }
 
 extension AllGroupListViewController {
     func createGroupsArray() {
         let group1 = Group(avatarImagePath: "cars", name: "Cars funs", description: nil)
-        groupsArray.append(group1)
+        sourceGroupsArray.append(group1)
         let group2 = Group(avatarImagePath: "students", name: "Students", description: nil)
-        groupsArray.append(group2)
+        sourceGroupsArray.append(group2)
         let group3 = Group(avatarImagePath: "news", name: "News", description: nil)
-        groupsArray.append(group3)
+        sourceGroupsArray.append(group3)
         let group4 = Group(avatarImagePath: "apple", name: "Apple funs", description: nil)
-        groupsArray.append(group4)
+        sourceGroupsArray.append(group4)
         let group5 = Group(avatarImagePath: "motocicle", name: "Motocicle funs", description: nil)
-        groupsArray.append(group5)
+        sourceGroupsArray.append(group5)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

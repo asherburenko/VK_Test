@@ -19,6 +19,8 @@
 		48AB3EBC27B6723400B0125C /* GroupsAndFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AB3EBA27B6723400B0125C /* GroupsAndFriendsTableViewCell.swift */; };
 		48AB3EBD27B6723400B0125C /* GroupsAndFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48AB3EBB27B6723400B0125C /* GroupsAndFriendsTableViewCell.xib */; };
 		48AB3EC027B67A4F00B0125C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AB3EBF27B67A4F00B0125C /* Group.swift */; };
+		48CE605027BE7AE9000ED6B4 /* MyGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE604F27BE7AE9000ED6B4 /* MyGroupViewController.swift */; };
+		48CE605227BE7DD4000ED6B4 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CE605127BE7DD4000ED6B4 /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		48AB3EBA27B6723400B0125C /* GroupsAndFriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAndFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		48AB3EBB27B6723400B0125C /* GroupsAndFriendsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupsAndFriendsTableViewCell.xib; sourceTree = "<group>"; };
 		48AB3EBF27B67A4F00B0125C /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		48CE604F27BE7AE9000ED6B4 /* MyGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupViewController.swift; sourceTree = "<group>"; };
+		48CE605127BE7DD4000ED6B4 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 				48AB3EBE27B67A0A00B0125C /* Model */,
 				484C156A27A8596A00F37CF3 /* AppDelegate.swift */,
 				484C156C27A8596A00F37CF3 /* SceneDelegate.swift */,
+				48CE605127BE7DD4000ED6B4 /* Constant.swift */,
 				48AB3EB827B671B700B0125C /* Cell */,
 				48AB3EB427B6712400B0125C /* ViewController */,
 				484C157027A8596A00F37CF3 /* Main.storyboard */,
@@ -103,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				48AB3EB627B6719300B0125C /* AllGroupListViewController.swift */,
+				48CE604F27BE7AE9000ED6B4 /* MyGroupViewController.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -208,9 +214,11 @@
 				48AB3EB727B6719300B0125C /* AllGroupListViewController.swift in Sources */,
 				484C156F27A8596A00F37CF3 /* ViewController.swift in Sources */,
 				488EF59227B697AE003CDF75 /* FriendsListViewController.swift in Sources */,
+				48CE605027BE7AE9000ED6B4 /* MyGroupViewController.swift in Sources */,
 				488EF59427B69967003CDF75 /* FriendsList.swift in Sources */,
 				484C156B27A8596A00F37CF3 /* AppDelegate.swift in Sources */,
 				48AB3EC027B67A4F00B0125C /* Group.swift in Sources */,
+				48CE605227BE7DD4000ED6B4 /* Constant.swift in Sources */,
 				48AB3EBC27B6723400B0125C /* GroupsAndFriendsTableViewCell.swift in Sources */,
 				484C156D27A8596A00F37CF3 /* SceneDelegate.swift in Sources */,
 			);

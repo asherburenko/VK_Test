@@ -134,12 +134,24 @@
         <!--My Groups-->
         <scene sceneID="muq-wN-iO9">
             <objects>
-                <viewController id="Ugg-JJ-uwf" sceneMemberID="viewController">
+                <viewController id="Ugg-JJ-uwf" customClass="MyGroupViewController" customModule="VK_Test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MO5-FT-Z6Q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xaN-Qk-R8r">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="ACO-3i-haj"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xaN-Qk-R8r" firstAttribute="leading" secondItem="ACO-3i-haj" secondAttribute="leading" id="1kC-t9-ZzX"/>
+                            <constraint firstItem="ACO-3i-haj" firstAttribute="bottom" secondItem="xaN-Qk-R8r" secondAttribute="bottom" id="Ep3-Ol-rwU"/>
+                            <constraint firstItem="xaN-Qk-R8r" firstAttribute="top" secondItem="ACO-3i-haj" secondAttribute="top" id="LOq-ZF-J01"/>
+                            <constraint firstItem="ACO-3i-haj" firstAttribute="trailing" secondItem="xaN-Qk-R8r" secondAttribute="trailing" id="PBO-Jg-y4e"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Groups" id="0mG-G2-Z7T">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="CjJ-PB-p0f">
@@ -148,6 +160,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="myGroupTableView" destination="xaN-Qk-R8r" id="qrk-eF-4Sk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z0t-xQ-Kmn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -162,22 +177,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5Fh-QH-UU7">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="138" width="414" height="675"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="D7N-Ib-wra">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3yQ-3w-Zg1"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="D7N-Ib-wra" firstAttribute="top" secondItem="3yQ-3w-Zg1" secondAttribute="top" id="5Ae-wx-lFi"/>
+                            <constraint firstItem="D7N-Ib-wra" firstAttribute="leading" secondItem="3yQ-3w-Zg1" secondAttribute="leading" id="Ew5-bh-maf"/>
                             <constraint firstItem="3yQ-3w-Zg1" firstAttribute="trailing" secondItem="5Fh-QH-UU7" secondAttribute="trailing" id="IXt-6y-oC3"/>
-                            <constraint firstItem="5Fh-QH-UU7" firstAttribute="top" secondItem="3yQ-3w-Zg1" secondAttribute="top" id="Lve-Ef-5Ae"/>
+                            <constraint firstItem="5Fh-QH-UU7" firstAttribute="top" secondItem="3yQ-3w-Zg1" secondAttribute="top" constant="50" id="Lve-Ef-5Ae"/>
                             <constraint firstItem="5Fh-QH-UU7" firstAttribute="leading" secondItem="3yQ-3w-Zg1" secondAttribute="leading" id="PKw-mc-mMT"/>
                             <constraint firstItem="3yQ-3w-Zg1" firstAttribute="bottom" secondItem="5Fh-QH-UU7" secondAttribute="bottom" id="YqB-nW-fbU"/>
+                            <constraint firstItem="5Fh-QH-UU7" firstAttribute="top" secondItem="D7N-Ib-wra" secondAttribute="bottom" id="n6Q-e3-p6s"/>
+                            <constraint firstItem="D7N-Ib-wra" firstAttribute="trailing" secondItem="3yQ-3w-Zg1" secondAttribute="trailing" id="xZ4-SJ-lX9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="All Groups" id="J0b-TD-qaF"/>
                     <connections>
                         <outlet property="allGroupListTableView" destination="5Fh-QH-UU7" id="wyF-X1-EDq"/>
+                        <outlet property="allGroupSearchBar" destination="D7N-Ib-wra" id="fXL-96-kNw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWB-uj-uEG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
