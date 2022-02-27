@@ -35,9 +35,7 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
             imageViewCell.image = UIImage(named: avatarPath)
         }
         titleLabelCell.text = group.name
-        descriptionLabelCell.text = group.description
         titleLabelCell.textColor = .white
-        descriptionLabelCell.textColor = .lightGray
     }
     
     func setDataFriendsList(friendsList: FriendsList) {
