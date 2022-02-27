@@ -17,6 +17,7 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupUi()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,7 +27,7 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabelCell.text = nil
-        descriptionLabelCell = nil
+        descriptionLabelCell.text = nil
         imageViewCell.image = nil
     }
     
@@ -46,6 +47,13 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         descriptionLabelCell.text = friendsList.messadge
         titleLabelCell.textColor = .white
         descriptionLabelCell.textColor = .lightGray
+    }
+    
+    private func setupUi() {
+        imageViewCell.layer.cornerRadius = 40
+        imageViewCell.layer.borderWidth = 1
+        imageViewCell.layer.borderColor = UIColor.black.cgColor
+        imageViewCell.clipsToBounds = true
     }
     
 }
