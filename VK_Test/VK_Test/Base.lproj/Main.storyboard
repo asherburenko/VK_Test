@@ -6,6 +6,7 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -140,17 +141,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xaN-Qk-R8r">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="138" width="414" height="675"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="AEu-bN-Xhz">
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ACO-3i-haj"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="xaN-Qk-R8r" firstAttribute="leading" secondItem="ACO-3i-haj" secondAttribute="leading" id="1kC-t9-ZzX"/>
+                            <constraint firstItem="AEu-bN-Xhz" firstAttribute="trailing" secondItem="ACO-3i-haj" secondAttribute="trailing" id="7DO-co-rLb"/>
                             <constraint firstItem="ACO-3i-haj" firstAttribute="bottom" secondItem="xaN-Qk-R8r" secondAttribute="bottom" id="Ep3-Ol-rwU"/>
-                            <constraint firstItem="xaN-Qk-R8r" firstAttribute="top" secondItem="ACO-3i-haj" secondAttribute="top" id="LOq-ZF-J01"/>
+                            <constraint firstItem="AEu-bN-Xhz" firstAttribute="leading" secondItem="ACO-3i-haj" secondAttribute="leading" id="FhT-Gd-97S"/>
+                            <constraint firstItem="xaN-Qk-R8r" firstAttribute="top" secondItem="ACO-3i-haj" secondAttribute="top" constant="50" id="LOq-ZF-J01"/>
                             <constraint firstItem="ACO-3i-haj" firstAttribute="trailing" secondItem="xaN-Qk-R8r" secondAttribute="trailing" id="PBO-Jg-y4e"/>
+                            <constraint firstItem="xaN-Qk-R8r" firstAttribute="top" secondItem="AEu-bN-Xhz" secondAttribute="bottom" id="TXz-G2-dsC"/>
+                            <constraint firstItem="AEu-bN-Xhz" firstAttribute="top" secondItem="ACO-3i-haj" secondAttribute="top" id="cXm-BK-ELb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Groups" id="0mG-G2-Z7T">
@@ -161,12 +171,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="myGroupSearchBar" destination="AEu-bN-Xhz" id="yLd-lf-tLG"/>
                         <outlet property="myGroupTableView" destination="xaN-Qk-R8r" id="qrk-eF-4Sk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z0t-xQ-Kmn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2658" y="469"/>
+            <point key="canvasLocation" x="2657.971014492754" y="468.75"/>
         </scene>
         <!--All Groups-->
         <scene sceneID="MCu-35-ajO">
@@ -180,9 +191,10 @@
                                 <rect key="frame" x="0.0" y="138" width="414" height="675"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="D7N-Ib-wra">
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="D7N-Ib-wra">
                                 <rect key="frame" x="0.0" y="88" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
@@ -231,16 +243,10 @@
                             <constraint firstItem="1M6-Jj-4eS" firstAttribute="top" secondItem="fsd-db-FuU" secondAttribute="top" id="qPi-Ol-hI1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="My Friends" id="Ng3-bX-Fle">
-                        <barButtonItem key="rightBarButtonItem" title="Galery" id="OsB-cb-JzR">
-                            <color key="tintColor" systemColor="systemPinkColor"/>
-                            <connections>
-                                <segue destination="uLd-Rd-gwz" kind="show" id="oxQ-Na-Trx"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="My Friends" id="Ng3-bX-Fle"/>
                     <connections>
                         <outlet property="friendsListTableView" destination="1M6-Jj-4eS" id="LMf-j4-OzU"/>
+                        <segue destination="uLd-Rd-gwz" kind="show" identifier="fromFriendsGallery" id="Jju-zh-MuH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYU-xx-P4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -250,14 +256,45 @@
         <!--Galery-->
         <scene sceneID="9rc-AV-ePX">
             <objects>
-                <viewController id="uLd-Rd-gwz" sceneMemberID="viewController">
+                <viewController id="uLd-Rd-gwz" customClass="GalleryViewController" customModule="VK_Test" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bwh-Mt-lm9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="23f-rj-8zO">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YQg-1Q-sWk">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="HCT-YG-CPw">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2vX-Hf-Zz0">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="LfX-Qy-nl6"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="23f-rj-8zO" firstAttribute="leading" secondItem="LfX-Qy-nl6" secondAttribute="leading" id="7kY-2H-gIs"/>
+                            <constraint firstItem="LfX-Qy-nl6" firstAttribute="bottom" secondItem="23f-rj-8zO" secondAttribute="bottom" id="IdF-Sf-5c9"/>
+                            <constraint firstItem="LfX-Qy-nl6" firstAttribute="trailing" secondItem="23f-rj-8zO" secondAttribute="trailing" id="cu8-US-rE9"/>
+                            <constraint firstItem="23f-rj-8zO" firstAttribute="top" secondItem="LfX-Qy-nl6" secondAttribute="top" id="end-J0-OPp"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Galery" id="zVt-v4-CEk"/>
+                    <connections>
+                        <outlet property="friendsCollectionView" destination="23f-rj-8zO" id="h15-Gb-3bz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9uv-M6-b81" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -336,9 +373,6 @@
         <image name="vk" width="256" height="256"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -11,8 +11,11 @@ class MyGroupViewController: UIViewController {
     
     @IBOutlet weak var myGroupTableView: UITableView!
     
+    @IBOutlet weak var myGroupSearchBar: UISearchBar!
+    
     let myGroupsCellIdentifier = "myGroupsCellIdentifier"
     var myGroupArray = [Group]()
+  //  var mySourceGroupsArray = [Group]()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -23,7 +26,9 @@ class MyGroupViewController: UIViewController {
         super.viewDidLoad()
         myGroupTableView.dataSource = self
         myGroupTableView.delegate = self
+       // myGroupSearchBar.delegate = self
         notification()
+     //   myGroupArray = mySourceGroupsArray
         registerTableView()
     }
 }
@@ -73,6 +78,17 @@ extension MyGroupViewController {
         return "My Group"
     }
 }
+
+//extension MyGroupViewController: UISearchBarDelegate {
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        if searchText.isEmpty {
+//            mySourceGroupsArray = myGroupArray
+//        } else {
+//            mySourceGroupsArray = myGroupArray.filter({ groupItem in groupItem.name.lowercased().contains(searchText.lowercased())})
+//        }
+//        myGroupTableView.reloadData()
+//    }
+//}
 
 extension MyGroupViewController {
     func registerTableView() {
