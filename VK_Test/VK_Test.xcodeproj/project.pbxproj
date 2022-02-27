@@ -13,6 +13,8 @@
 		484C157227A8596A00F37CF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484C157027A8596A00F37CF3 /* Main.storyboard */; };
 		484C157427A8596B00F37CF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 484C157327A8596B00F37CF3 /* Assets.xcassets */; };
 		484C157727A8596B00F37CF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484C157527A8596B00F37CF3 /* LaunchScreen.storyboard */; };
+		4879539127CBE466007D2299 /* LikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4879539027CBE466007D2299 /* LikeView.swift */; };
+		4879539327CBE47F007D2299 /* LikeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4879539227CBE47F007D2299 /* LikeView.xib */; };
 		488EF59227B697AE003CDF75 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488EF59127B697AE003CDF75 /* FriendsListViewController.swift */; };
 		488EF59427B69967003CDF75 /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488EF59327B69967003CDF75 /* FriendsList.swift */; };
 		48AB3EB727B6719300B0125C /* AllGroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AB3EB627B6719300B0125C /* AllGroupListViewController.swift */; };
@@ -35,6 +37,8 @@
 		484C157327A8596B00F37CF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		484C157627A8596B00F37CF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		484C157827A8596B00F37CF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4879539027CBE466007D2299 /* LikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeView.swift; sourceTree = "<group>"; };
+		4879539227CBE47F007D2299 /* LikeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeView.xib; sourceTree = "<group>"; };
 		488EF59127B697AE003CDF75 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
 		488EF59327B69967003CDF75 /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
 		48AB3EB627B6719300B0125C /* AllGroupListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupListViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 				484C156A27A8596A00F37CF3 /* AppDelegate.swift */,
 				484C156C27A8596A00F37CF3 /* SceneDelegate.swift */,
 				48CE605127BE7DD4000ED6B4 /* Constant.swift */,
+				4879538F27CBD81B007D2299 /* CustomView */,
 				48AB3EB827B671B700B0125C /* Cell */,
 				48AB3EB427B6712400B0125C /* ViewController */,
 				484C157027A8596A00F37CF3 /* Main.storyboard */,
@@ -90,6 +95,23 @@
 				484C157827A8596B00F37CF3 /* Info.plist */,
 			);
 			path = VK_Test;
+			sourceTree = "<group>";
+		};
+		4879538F27CBD81B007D2299 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				4879539427CBF26A007D2299 /* LikeView */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		4879539427CBF26A007D2299 /* LikeView */ = {
+			isa = PBXGroup;
+			children = (
+				4879539027CBE466007D2299 /* LikeView.swift */,
+				4879539227CBE47F007D2299 /* LikeView.xib */,
+			);
+			path = LikeView;
 			sourceTree = "<group>";
 		};
 		488EF59027B6978A003CDF75 /* FriendsList */ = {
@@ -215,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				484C157727A8596B00F37CF3 /* LaunchScreen.storyboard in Resources */,
+				4879539327CBE47F007D2299 /* LikeView.xib in Resources */,
 				48AB3EBD27B6723400B0125C /* GroupsAndFriendsTableViewCell.xib in Resources */,
 				484C157427A8596B00F37CF3 /* Assets.xcassets in Resources */,
 				48BAC0FA27CBBF02003CA54E /* GalleryCollectionViewCell.xib in Resources */,
@@ -232,6 +255,7 @@
 				48BAC0F527CBBE2F003CA54E /* GalleryViewController.swift in Sources */,
 				48BAC0F927CBBF02003CA54E /* GalleryCollectionViewCell.swift in Sources */,
 				48AB3EB727B6719300B0125C /* AllGroupListViewController.swift in Sources */,
+				4879539127CBE466007D2299 /* LikeView.swift in Sources */,
 				484C156F27A8596A00F37CF3 /* ViewController.swift in Sources */,
 				488EF59227B697AE003CDF75 /* FriendsListViewController.swift in Sources */,
 				48CE605027BE7AE9000ED6B4 /* MyGroupViewController.swift in Sources */,
