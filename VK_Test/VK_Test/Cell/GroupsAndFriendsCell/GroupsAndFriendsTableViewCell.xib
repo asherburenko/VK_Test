@@ -38,10 +38,21 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njL-n4-Z4a">
+                        <rect key="frame" x="20" y="7.5" width="80" height="80"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain"/>
+                        <connections>
+                            <action selector="pressImageButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qbK-Zs-dWv"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="njL-n4-Z4a" firstAttribute="centerY" secondItem="dc9-zh-s5Q" secondAttribute="centerY" id="0cM-Xl-2X3"/>
                     <constraint firstItem="30v-e9-cqz" firstAttribute="leading" secondItem="K0K-4o-DrU" secondAttribute="leading" id="4Hj-1j-8i2"/>
+                    <constraint firstItem="njL-n4-Z4a" firstAttribute="width" secondItem="dc9-zh-s5Q" secondAttribute="width" id="9QC-rw-FNg"/>
                     <constraint firstAttribute="trailing" secondItem="K0K-4o-DrU" secondAttribute="trailing" constant="20" id="IUa-fO-SHR"/>
                     <constraint firstItem="dc9-zh-s5Q" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KAC-4t-cgG"/>
                     <constraint firstItem="30v-e9-cqz" firstAttribute="trailing" secondItem="K0K-4o-DrU" secondAttribute="trailing" id="Kz7-qo-lP7"/>
@@ -49,7 +60,9 @@
                     <constraint firstItem="30v-e9-cqz" firstAttribute="height" secondItem="K0K-4o-DrU" secondAttribute="height" multiplier="1.025" id="RXB-CK-VUH"/>
                     <constraint firstItem="dc9-zh-s5Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="XbH-kn-M0c"/>
                     <constraint firstItem="K0K-4o-DrU" firstAttribute="leading" secondItem="dc9-zh-s5Q" secondAttribute="trailing" constant="15" id="eId-ds-P7Z"/>
+                    <constraint firstItem="njL-n4-Z4a" firstAttribute="height" secondItem="dc9-zh-s5Q" secondAttribute="height" id="jim-4L-Ads"/>
                     <constraint firstItem="K0K-4o-DrU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-15" id="miM-Su-2G7"/>
+                    <constraint firstItem="njL-n4-Z4a" firstAttribute="centerX" secondItem="dc9-zh-s5Q" secondAttribute="centerX" id="zpH-m6-vHF"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

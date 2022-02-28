@@ -47,7 +47,7 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="aIn-KD-cZ7" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="0Fr-rB-xB7"/>
                 <constraint firstItem="p1T-p6-esk" firstAttribute="centerY" secondItem="sn8-Dd-c9O" secondAttribute="centerY" id="7Dt-57-29n"/>
@@ -64,6 +64,9 @@
     </objects>
     <resources>
         <image name="heart" catalog="system" width="128" height="109"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -73,12 +73,54 @@
                                                     <color key="baseBackgroundColor" systemColor="systemGreenColor"/>
                                                 </buttonConfiguration>
                                             </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRg-hS-4e7">
+                                                <rect key="frame" x="167" y="612" width="20" height="20"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="Mbp-E0-nRc"/>
+                                                    <constraint firstAttribute="width" constant="20" id="reN-xu-mYT"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YCl-vW-6gF">
+                                                <rect key="frame" x="227" y="612" width="20" height="20"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="Gbp-ZJ-pqm"/>
+                                                    <constraint firstAttribute="height" constant="20" id="T6A-rx-3sa"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HN6-O5-iXp">
+                                                <rect key="frame" x="197" y="612" width="20" height="20"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="TrN-vs-OPA"/>
+                                                    <constraint firstAttribute="height" constant="20" id="wr6-sr-yal"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="llr-Yx-3yc" firstAttribute="width" secondItem="GtW-Ka-NKz" secondAttribute="width" multiplier="0.5" id="1bt-dp-G6r"/>
+                                            <constraint firstItem="YCl-vW-6gF" firstAttribute="centerY" secondItem="HN6-O5-iXp" secondAttribute="centerY" id="2og-ZG-izW"/>
+                                            <constraint firstItem="HN6-O5-iXp" firstAttribute="leading" secondItem="JRg-hS-4e7" secondAttribute="trailing" constant="10" id="3Xc-Jg-dxI"/>
                                             <constraint firstItem="onE-4H-d4Q" firstAttribute="leading" secondItem="UtI-dV-PIz" secondAttribute="leading" id="6pZ-MO-iBQ"/>
                                             <constraint firstItem="ZeA-4L-Mo4" firstAttribute="trailing" secondItem="UtI-dV-PIz" secondAttribute="trailing" id="BuF-2j-yLA"/>
+                                            <constraint firstItem="JRg-hS-4e7" firstAttribute="centerX" secondItem="GtW-Ka-NKz" secondAttribute="centerX" constant="-30" id="EAU-w8-W5W"/>
                                             <constraint firstAttribute="bottom" secondItem="AYc-7g-0da" secondAttribute="bottom" constant="200" id="JFx-A5-anW"/>
                                             <constraint firstItem="onE-4H-d4Q" firstAttribute="top" secondItem="ZeA-4L-Mo4" secondAttribute="bottom" constant="16" id="LCd-FA-Yup"/>
                                             <constraint firstItem="AYc-7g-0da" firstAttribute="top" secondItem="onE-4H-d4Q" secondAttribute="bottom" constant="8" id="LTe-Qq-e6Z"/>
@@ -86,9 +128,12 @@
                                             <constraint firstItem="AYc-7g-0da" firstAttribute="leading" secondItem="onE-4H-d4Q" secondAttribute="leading" id="Ms2-Z2-sC1"/>
                                             <constraint firstItem="AYc-7g-0da" firstAttribute="height" secondItem="onE-4H-d4Q" secondAttribute="height" id="S1t-lR-yUX"/>
                                             <constraint firstItem="JKD-gc-Agc" firstAttribute="centerX" secondItem="GtW-Ka-NKz" secondAttribute="centerX" id="T8t-b0-ELV"/>
+                                            <constraint firstItem="HN6-O5-iXp" firstAttribute="centerY" secondItem="JRg-hS-4e7" secondAttribute="centerY" id="TfH-CH-1f3"/>
                                             <constraint firstItem="UtI-dV-PIz" firstAttribute="height" secondItem="JKD-gc-Agc" secondAttribute="height" id="Zb9-FJ-zcq"/>
+                                            <constraint firstItem="YCl-vW-6gF" firstAttribute="leading" secondItem="HN6-O5-iXp" secondAttribute="trailing" constant="10" id="ciV-Ea-AVB"/>
                                             <constraint firstItem="ZeA-4L-Mo4" firstAttribute="top" secondItem="UtI-dV-PIz" secondAttribute="bottom" constant="16" id="doe-vm-By1"/>
                                             <constraint firstItem="UtI-dV-PIz" firstAttribute="top" secondItem="JKD-gc-Agc" secondAttribute="bottom" constant="8" id="ggg-hG-vGH"/>
+                                            <constraint firstItem="JRg-hS-4e7" firstAttribute="top" secondItem="AYc-7g-0da" secondAttribute="bottom" constant="20" id="hBS-Wn-XbJ"/>
                                             <constraint firstItem="UtI-dV-PIz" firstAttribute="leading" secondItem="JKD-gc-Agc" secondAttribute="leading" id="hal-0j-iwD"/>
                                             <constraint firstItem="JKD-gc-Agc" firstAttribute="width" secondItem="llr-Yx-3yc" secondAttribute="width" multiplier="1.7" id="jKG-Yz-fDd"/>
                                             <constraint firstItem="ZeA-4L-Mo4" firstAttribute="height" secondItem="UtI-dV-PIz" secondAttribute="height" multiplier="0.5" id="jbB-6G-D25"/>
@@ -125,6 +170,9 @@
                         <outlet property="loginTextField" destination="JKD-gc-Agc" id="225-mQ-q5L"/>
                         <outlet property="passwordTextField" destination="UtI-dV-PIz" id="ziA-zS-fEg"/>
                         <outlet property="scrollViewTitle" destination="uSh-m9-wY9" id="AK4-8Z-zhF"/>
+                        <outlet property="view1" destination="JRg-hS-4e7" id="wUP-wq-2Jl"/>
+                        <outlet property="view2" destination="HN6-O5-iXp" id="f84-RJ-TIM"/>
+                        <outlet property="view3" destination="YCl-vW-6gF" id="u06-R2-FXu"/>
                         <segue destination="e2j-d2-5bI" kind="presentation" identifier="fromLoginToTabBarId" modalPresentationStyle="fullScreen" id="xXc-2r-IYj"/>
                     </connections>
                 </viewController>
@@ -371,6 +419,9 @@
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="vk" width="256" height="256"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

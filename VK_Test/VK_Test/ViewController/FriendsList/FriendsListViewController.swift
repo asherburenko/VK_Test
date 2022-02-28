@@ -33,7 +33,10 @@ extension FriendsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: friendsListIdentifier, for: indexPath) as? GroupsAndFriendsTableViewCell else {return UITableViewCell()}
         
-        cell.setDataFriendsList(friendsList: friendsListArray[indexPath.row])
+        cell.setDataFriendsList(friendsList: friendsListArray[indexPath.row], completion: {[weak self] in
+            guard let self = self else {return}
+            self.performSegue(withIdentifier: self.friendsGalleryId, sender: self.friendsListArray[indexPath.row].fotos)
+        })
         return cell
     }
 }
@@ -45,7 +48,7 @@ extension FriendsListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected \(friendsListArray[indexPath.row].name) friend")
-        
+
         performSegue(withIdentifier: friendsGalleryId, sender: friendsListArray[indexPath.row].fotos)
     }
 }

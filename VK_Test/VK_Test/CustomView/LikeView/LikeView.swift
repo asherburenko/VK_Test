@@ -40,6 +40,8 @@ class LikeView: UIView {
         self.addSubview(self.viewXIB)
         self.bringSubviewToFront(viewXIB)
         
+        self.viewXIB.backgroundColor = .clear
+        
         counterLabel.text = String(self.count)
         heartState(isFilled: false)
     }
@@ -57,9 +59,17 @@ class LikeView: UIView {
         heartState(isFilled: isHeartPressed)
         
         if isHeartPressed {
-            self.count += 1
+            UIView.transition(with: counterLabel, duration: 3, options: [.transitionFlipFromLeft]) {[weak self] in
+                self?.count += 1
+            } completion: { _ in
+                
+            }
         } else {
-            self.count -= 1
+            UIView.transition(with: counterLabel, duration: 3, options: [.transitionFlipFromLeft]) {[weak self] in
+                self?.count -= 1
+            } completion: { _ in
+                
+            }
         }
         counterLabel.text = String(self.count)
     }
