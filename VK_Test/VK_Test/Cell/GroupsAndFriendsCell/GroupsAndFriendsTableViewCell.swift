@@ -15,6 +15,8 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabelCell: UILabel!
     @IBOutlet weak var imageViewCell: UIImageView!
     
+    var completion: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUi()
@@ -29,6 +31,7 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         titleLabelCell.text = nil
         descriptionLabelCell.text = nil
         imageViewCell.image = nil
+        completion = nil
     }
     
     func setDataGroupList(group: Group) {
@@ -36,24 +39,35 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
             imageViewCell.image = UIImage(named: avatarPath)
         }
         titleLabelCell.text = group.name
-        titleLabelCell.textColor = .white
     }
     
-    func setDataFriendsList(friendsList: FriendsList) {
+    func setDataFriendsList(friendsList: FriendsList, completion: @escaping () -> Void) {
         if let avatarPath = friendsList.avatarImagePath {
             imageViewCell.image = UIImage(named: avatarPath)
         }
         titleLabelCell.text = friendsList.name
         descriptionLabelCell.text = friendsList.messadge
-        titleLabelCell.textColor = .white
-        descriptionLabelCell.textColor = .lightGray
+        self.completion = completion
     }
     
     private func setupUi() {
+        titleLabelCell.textColor = .white
+        descriptionLabelCell.textColor = .lightGray
         imageViewCell.layer.cornerRadius = 40
         imageViewCell.layer.borderWidth = 1
         imageViewCell.layer.borderColor = UIColor.black.cgColor
         imageViewCell.clipsToBounds = true
     }
     
+    @IBAction func pressImageButton(_ sender: Any) {
+        UIView.animate(withDuration: 3) { [weak self] in
+            self?.imageViewCell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+        } completion: { _ in
+            UIView.animate(withDuration: 3, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 1, options: []) {[weak self] in
+                self?.imageViewCell.transform = .identity
+            } completion: {[weak self] _ in
+                self?.completion?()
+            }
+        }
+    }
 }

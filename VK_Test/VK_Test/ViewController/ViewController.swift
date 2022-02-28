@@ -13,7 +13,44 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollViewTitle: UIScrollView!
     
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
+    @IBOutlet weak var view3: UIView!
+    
     let fromLoginToTabBarId = "fromLoginToTabBarId"
+    
+    func loadAnimate(currentCount: Int, totalCount: Int) {
+        view1.alpha = 1
+        view2.alpha = 0
+        view3.alpha = 0
+        
+        UIView.animate(withDuration: 1) { [weak self] in
+            self?.view1.alpha = 0
+            self?.view2.alpha = 1
+        } completion: { _ in
+            UIView.animate(withDuration: 1) { [weak self] in
+                self?.view2.alpha = 0
+                self?.view3.alpha = 1
+            } completion: { _ in
+                UIView.animate(withDuration: 1) { [weak self] in
+                    self?.view3.alpha = 0
+                    self?.view1.alpha = 1
+                } completion: { [weak self] _ in
+                    if currentCount + 1 <= totalCount {
+                        self?.loadAnimate(currentCount: currentCount + 1, totalCount: totalCount)
+                        //self?.loginTextField.text = String(currentCount + 1)
+                    } else {
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadAnimate(currentCount: 1, totalCount: 20)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
