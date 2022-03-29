@@ -13,6 +13,7 @@
 		484C157227A8596A00F37CF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484C157027A8596A00F37CF3 /* Main.storyboard */; };
 		484C157427A8596B00F37CF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 484C157327A8596B00F37CF3 /* Assets.xcassets */; };
 		484C157727A8596B00F37CF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484C157527A8596B00F37CF3 /* LaunchScreen.storyboard */; };
+		485624AF27F38057006B0F02 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485624AE27F38057006B0F02 /* Session.swift */; };
 		4879539127CBE466007D2299 /* LikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4879539027CBE466007D2299 /* LikeView.swift */; };
 		4879539327CBE47F007D2299 /* LikeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4879539227CBE47F007D2299 /* LikeView.xib */; };
 		488EF59227B697AE003CDF75 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488EF59127B697AE003CDF75 /* FriendsListViewController.swift */; };
@@ -37,6 +38,7 @@
 		484C157327A8596B00F37CF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		484C157627A8596B00F37CF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		484C157827A8596B00F37CF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		485624AE27F38057006B0F02 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		4879539027CBE466007D2299 /* LikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeView.swift; sourceTree = "<group>"; };
 		4879539227CBE47F007D2299 /* LikeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeView.xib; sourceTree = "<group>"; };
 		488EF59127B697AE003CDF75 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				48AB3EBF27B67A4F00B0125C /* Group.swift */,
 				488EF59327B69967003CDF75 /* FriendsList.swift */,
+				485624AE27F38057006B0F02 /* Session.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				485624AF27F38057006B0F02 /* Session.swift in Sources */,
 				48BAC0F527CBBE2F003CA54E /* GalleryViewController.swift in Sources */,
 				48BAC0F927CBBF02003CA54E /* GalleryCollectionViewCell.swift in Sources */,
 				48AB3EB727B6719300B0125C /* AllGroupListViewController.swift in Sources */,
