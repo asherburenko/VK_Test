@@ -15,5 +15,12 @@ class Session {
     private init() {}
     
     var token = ""
-    var userID = ""
+    var userID = 0
+    
+    func loginInUser(with token: String, userID: Int) {
+        self.token = token
+        self.userID = userID
+        print("Token \(token), UserID \(userID)")
+    }
 }
+
