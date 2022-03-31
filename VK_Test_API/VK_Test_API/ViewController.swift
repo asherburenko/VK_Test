@@ -61,8 +61,10 @@ extension ViewController: WKNavigationDelegate {
                 return dict
             }
         
-        let token = params["access_token"]
-        let userID = params["user_id"]
+        guard let token = params["access_token"],
+              let userID = params["user_id"] else {return}
+        Session.shared.token = token
+        Session.shared.userID = userID
 
         print("token", token, "user_id", userID)
         
