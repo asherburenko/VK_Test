@@ -36,16 +36,47 @@
                     </view>
                     <connections>
                         <outlet property="webView" destination="ZPn-Gs-Aey" id="dVF-gu-Xtg"/>
+                        <segue destination="JYo-s9-Mcf" kind="presentation" identifier="loginID" modalPresentationStyle="fullScreen" id="kFl-ta-dd6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="20" y="84"/>
         </scene>
+        <!--Next View Controller-->
+        <scene sceneID="nCF-JO-fnC">
+            <objects>
+                <viewController id="JYo-s9-Mcf" customClass="NextViewController" customModule="VK_Test_API" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SmF-LU-CrU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zM4-KB-MPv">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="j4U-iy-szv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zM4-KB-MPv" firstAttribute="top" secondItem="j4U-iy-szv" secondAttribute="top" id="Hvy-AH-kXy"/>
+                            <constraint firstItem="j4U-iy-szv" firstAttribute="trailing" secondItem="zM4-KB-MPv" secondAttribute="trailing" id="ZLS-6N-Lkc"/>
+                            <constraint firstItem="j4U-iy-szv" firstAttribute="bottom" secondItem="zM4-KB-MPv" secondAttribute="bottom" id="hmA-nf-JVC"/>
+                            <constraint firstItem="zM4-KB-MPv" firstAttribute="leading" secondItem="j4U-iy-szv" secondAttribute="leading" id="rR5-D4-Gqy"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a7J-mY-e1K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="875" y="84"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
