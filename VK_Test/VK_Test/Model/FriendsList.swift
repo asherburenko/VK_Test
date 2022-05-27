@@ -11,5 +11,6 @@ struct FriendsList {
     let avatarImagePath: String?
     let name: String
     let messadge: String?
-    let fotos: [String]
+    let fotos: String
+    let id: String
 }

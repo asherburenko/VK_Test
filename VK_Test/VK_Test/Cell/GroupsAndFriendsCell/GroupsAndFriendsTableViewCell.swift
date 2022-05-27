@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class GroupsAndFriendsTableViewCell: UITableViewCell {
 
@@ -34,19 +35,28 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         completion = nil
     }
     
-    func setDataGroupList(group: Group) {
+    func setDataGroupList0(group: Group) {
         if let avatarPath = group.avatarImagePath {
             imageViewCell.image = UIImage(named: avatarPath)
         }
         titleLabelCell.text = group.name
     }
     
-    func setDataFriendsList(friendsList: FriendsList, completion: @escaping () -> Void) {
-        if let avatarPath = friendsList.avatarImagePath {
-            imageViewCell.image = UIImage(named: avatarPath)
-        }
+    func setDataGroupList(group: GroupRealm) {
+        let avatarPath = group.photo
+        let url = URL(string: avatarPath)
+        imageViewCell.kf.setImage(with: url)
+        
+        titleLabelCell.text = group.name
+    }
+    
+    func setDataFriendsList(friendsList: FriendRealm, completion: @escaping () -> Void) {
+        let avatarPath = friendsList.avatarImagePath
+        let url = URL(string: avatarPath)
+        imageViewCell.kf.setImage(with: url)
+        
         titleLabelCell.text = friendsList.name
-        descriptionLabelCell.text = friendsList.messadge
+        descriptionLabelCell.text = friendsList.massadge
         self.completion = completion
     }
     

@@ -38,7 +38,6 @@ class ViewController: UIViewController {
                 } completion: { [weak self] _ in
                     if currentCount + 1 <= totalCount {
                         self?.loadAnimate(currentCount: currentCount + 1, totalCount: totalCount)
-                        //self?.loginTextField.text = String(currentCount + 1)
                     } else {
                         return
                     }

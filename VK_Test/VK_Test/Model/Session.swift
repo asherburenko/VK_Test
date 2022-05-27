@@ -6,13 +6,20 @@
 //
 
 import Foundation
+import UIKit
 
-class Account {
+class Session {
+    
+    public static let shared = Session()
     
     private init() {}
     
-    public static let shared = Account()
+    var token = ""
+    var userID = 0
     
-    var token: String = ""
-    var userID: Int = 0
+    func loginInUser(with token: String, userID: Int) {
+        self.token = token
+        self.userID = userID
+        print("Token \(token), UserID \(userID)")
+    }
 }

@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import RealmSwift
 
 class MyGroupViewController: UIViewController {
     
@@ -14,34 +17,37 @@ class MyGroupViewController: UIViewController {
     @IBOutlet weak var myGroupSearchBar: UISearchBar!
     
     let myGroupsCellIdentifier = "myGroupsCellIdentifier"
+    let host = "https://api.vk.com"
+
     var myGroupArray = [Group]()
-  //  var mySourceGroupsArray = [Group]()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        myGroupTableView.reloadData()
-    }
+    private lazy var groupRealm = try? Realm().objects(GroupRealm.self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getGroupsList()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         myGroupTableView.dataSource = self
         myGroupTableView.delegate = self
-       // myGroupSearchBar.delegate = self
         notification()
-     //   myGroupArray = mySourceGroupsArray
         registerTableView()
+        myGroupTableView.reloadData()
     }
+    
 }
 
 extension MyGroupViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myGroupArray.count
+        return groupRealm?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: myGroupsCellIdentifier, for: indexPath) as? GroupsAndFriendsTableViewCell else { return UITableViewCell()}
         
-        cell.setDataGroupList(group: myGroupArray[indexPath.row])
+        cell.setDataGroupList(group: (groupRealm?[indexPath.item])!)
         return cell
     }
 }
@@ -52,7 +58,7 @@ extension MyGroupViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected \(myGroupArray[indexPath.row].name) group")
+        print("selected \(groupRealm?[indexPath.item].name ?? "error") group")
     }
     
     func notification() {
@@ -79,19 +85,56 @@ extension MyGroupViewController {
     }
 }
 
-//extension MyGroupViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchText.isEmpty {
-//            mySourceGroupsArray = myGroupArray
-//        } else {
-//            mySourceGroupsArray = myGroupArray.filter({ groupItem in groupItem.name.lowercased().contains(searchText.lowercased())})
-//        }
-//        myGroupTableView.reloadData()
-//    }
-//}
-
 extension MyGroupViewController {
     func registerTableView() {
         myGroupTableView.register(UINib(nibName: "GroupsAndFriendsTableViewCell", bundle: nil), forCellReuseIdentifier: myGroupsCellIdentifier)
+    }
+}
+
+extension MyGroupViewController {
+    func getGroupsList() {
+        let path = "/method/groups.get"
+        
+        let parameters = [
+            "user_id": String(Session.shared.userID),
+            "extended": "1",
+            "access_token": Session.shared.token,
+            "v": "5.131"
+        ]
+        
+        AF
+            .request(host + path,
+                     method: .get,
+                     parameters: parameters)
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    let json = JSON(data)
+                    let groups = Groups(json)
+                    var i = 0
+                    for _ in groups.name {
+                        self.realmSave(data: groups, index: i)
+                        i = i + 1
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+    }
+}
+
+extension MyGroupViewController {
+    func realmSave(data: Groups, index: Int, configuration: Realm.Configuration = FriendsListViewController.deleteIfMigration, update: Realm.UpdatePolicy = .modified) {
+        let group = GroupRealm()
+        group.name = data.name[index]
+        group.photo = data.photo[index]
+        group.id = data.id[index]
+        
+        let realm = try? Realm(configuration: configuration)
+        guard let oldGroup = realm?.objects(GroupRealm.self).filter("id == %@", data.id[index]) else { return }
+        try? realm?.write({
+            realm?.delete(oldGroup)
+            realm?.add(group)
+        })
     }
 }

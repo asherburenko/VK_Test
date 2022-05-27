@@ -37,7 +37,7 @@ extension AllGroupListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: groupsCellIdentifier, for: indexPath) as? GroupsAndFriendsTableViewCell else { return UITableViewCell()}
         
-        cell.setDataGroupList(group: groupsArray[indexPath.row])
+        cell.setDataGroupList0(group: groupsArray[indexPath.row])
         return cell
     }
 }

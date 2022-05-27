@@ -62,6 +62,7 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zyr-N8-pmZ"/>
+                                                    <segue destination="3kp-Nc-c9F" kind="presentation" identifier="fromLoginToTabBarId" modalPresentationStyle="fullScreen" id="Rpj-BD-lg3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYc-7g-0da">
@@ -173,12 +174,11 @@
                         <outlet property="view1" destination="JRg-hS-4e7" id="wUP-wq-2Jl"/>
                         <outlet property="view2" destination="HN6-O5-iXp" id="f84-RJ-TIM"/>
                         <outlet property="view3" destination="YCl-vW-6gF" id="u06-R2-FXu"/>
-                        <segue destination="e2j-d2-5bI" kind="presentation" identifier="fromLoginToTabBarId" modalPresentationStyle="fullScreen" id="xXc-2r-IYj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="34.782608695652179" y="65.625"/>
+            <point key="canvasLocation" x="-748" y="66"/>
         </scene>
         <!--My Groups-->
         <scene sceneID="muq-wN-iO9">
@@ -291,7 +291,13 @@
                             <constraint firstItem="1M6-Jj-4eS" firstAttribute="top" secondItem="fsd-db-FuU" secondAttribute="top" id="qPi-Ol-hI1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="My Friends" id="Ng3-bX-Fle"/>
+                    <navigationItem key="navigationItem" title="My Friends" id="Ng3-bX-Fle">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="9vZ-Rr-Flh">
+                            <connections>
+                                <action selector="addFriendButton:" destination="ypW-Iu-HMy" id="beQ-7b-eFQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="friendsListTableView" destination="1M6-Jj-4eS" id="LMf-j4-OzU"/>
                         <segue destination="uLd-Rd-gwz" kind="show" identifier="fromFriendsGallery" id="Jju-zh-MuH"/>
@@ -348,6 +354,41 @@
             </objects>
             <point key="canvasLocation" x="3475" y="-246"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="eRa-Aw-Elr">
+            <objects>
+                <viewController id="3kp-Nc-c9F" customClass="VKLoginViewController" customModule="VK_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u22-vB-pNb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCF-Ml-gIR">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BPT-Af-xCo"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BPT-Af-xCo" firstAttribute="trailing" secondItem="zCF-Ml-gIR" secondAttribute="trailing" id="G9C-LX-Cig"/>
+                            <constraint firstItem="zCF-Ml-gIR" firstAttribute="top" secondItem="BPT-Af-xCo" secondAttribute="top" id="Rlk-fV-KnK"/>
+                            <constraint firstItem="BPT-Af-xCo" firstAttribute="bottom" secondItem="zCF-Ml-gIR" secondAttribute="bottom" id="abO-6P-HgQ"/>
+                            <constraint firstItem="zCF-Ml-gIR" firstAttribute="leading" secondItem="BPT-Af-xCo" secondAttribute="leading" id="bjb-7c-eTt"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webViewVKLogin" destination="zCF-Ml-gIR" id="JBA-2W-fv4"/>
+                        <segue destination="e2j-d2-5bI" kind="presentation" identifier="loginID" modalPresentationStyle="fullScreen" id="8hH-ts-Vne"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wEl-jK-Qg5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="16" y="66"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Vpu-ls-PKE">
             <objects>
@@ -358,7 +399,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
@@ -418,6 +459,7 @@
     <resources>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="vk" width="256" height="256"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
