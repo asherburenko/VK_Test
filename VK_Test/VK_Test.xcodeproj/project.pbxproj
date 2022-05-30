@@ -25,6 +25,8 @@
 		4859F51D28449BCE006F52A0 /* NewsLikeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4859F51B28449BCE006F52A0 /* NewsLikeTableViewCell.xib */; };
 		4859F5202844AB3F006F52A0 /* LikeMassadgeRepostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4859F51F2844AB3E006F52A0 /* LikeMassadgeRepostView.swift */; };
 		4859F5222844ABAD006F52A0 /* LikeMassadgeRepostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4859F5212844ABAD006F52A0 /* LikeMassadgeRepostView.xib */; };
+		4859F52528452F35006F52A0 /* NewsAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4859F52328452F35006F52A0 /* NewsAvatarTableViewCell.swift */; };
+		4859F52628452F35006F52A0 /* NewsAvatarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4859F52428452F35006F52A0 /* NewsAvatarTableViewCell.xib */; };
 		4879539127CBE466007D2299 /* LikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4879539027CBE466007D2299 /* LikeView.swift */; };
 		4879539327CBE47F007D2299 /* LikeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4879539227CBE47F007D2299 /* LikeView.xib */; };
 		488EF59227B697AE003CDF75 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488EF59127B697AE003CDF75 /* FriendsListViewController.swift */; };
@@ -65,6 +67,8 @@
 		4859F51B28449BCE006F52A0 /* NewsLikeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsLikeTableViewCell.xib; sourceTree = "<group>"; };
 		4859F51F2844AB3E006F52A0 /* LikeMassadgeRepostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeMassadgeRepostView.swift; sourceTree = "<group>"; };
 		4859F5212844ABAD006F52A0 /* LikeMassadgeRepostView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeMassadgeRepostView.xib; sourceTree = "<group>"; };
+		4859F52328452F35006F52A0 /* NewsAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAvatarTableViewCell.swift; sourceTree = "<group>"; };
+		4859F52428452F35006F52A0 /* NewsAvatarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsAvatarTableViewCell.xib; sourceTree = "<group>"; };
 		4879539027CBE466007D2299 /* LikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeView.swift; sourceTree = "<group>"; };
 		4879539227CBE47F007D2299 /* LikeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeView.xib; sourceTree = "<group>"; };
 		488EF59127B697AE003CDF75 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 		4859F4FF28449660006F52A0 /* NewsCell */ = {
 			isa = PBXGroup;
 			children = (
+				4859F52328452F35006F52A0 /* NewsAvatarTableViewCell.swift */,
+				4859F52428452F35006F52A0 /* NewsAvatarTableViewCell.xib */,
 				4859F51028449B7D006F52A0 /* NewsTextTableViewCell.swift */,
 				4859F51128449B7D006F52A0 /* NewsTextTableViewCell.xib */,
 				4859F51628449BBA006F52A0 /* NewsImageTableViewCell.swift */,
@@ -337,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4859F51328449B7D006F52A0 /* NewsTextTableViewCell.xib in Resources */,
+				4859F52628452F35006F52A0 /* NewsAvatarTableViewCell.xib in Resources */,
 				4859F5222844ABAD006F52A0 /* LikeMassadgeRepostView.xib in Resources */,
 				484C157727A8596B00F37CF3 /* LaunchScreen.storyboard in Resources */,
 				4879539327CBE47F007D2299 /* LikeView.xib in Resources */,
@@ -413,6 +420,7 @@
 				484C156F27A8596A00F37CF3 /* ViewController.swift in Sources */,
 				488EF59227B697AE003CDF75 /* FriendsListViewController.swift in Sources */,
 				48CE605027BE7AE9000ED6B4 /* MyGroupViewController.swift in Sources */,
+				4859F52528452F35006F52A0 /* NewsAvatarTableViewCell.swift in Sources */,
 				488EF59427B69967003CDF75 /* FriendsList.swift in Sources */,
 				484C156B27A8596A00F37CF3 /* AppDelegate.swift in Sources */,
 				48AB3EC027B67A4F00B0125C /* Group.swift in Sources */,
