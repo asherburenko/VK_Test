@@ -9,22 +9,19 @@ import UIKit
 
 class NewsTextTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var nawsTextLabel: UILabel!
+    @IBOutlet weak var newsTextLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUi()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
     
     func setDataNewsText(text: String) {
-        nawsTextLabel.text = text
+        newsTextLabel.text = text
     }
     
     private func setupUi() {
-        nawsTextLabel.textColor = .white
+        newsTextLabel.backgroundColor = .darkGray
+        newsTextLabel.textColor = .white
     }
 }

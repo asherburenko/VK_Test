@@ -23,6 +23,8 @@
 		4859F51928449BBA006F52A0 /* NewsImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4859F51728449BBA006F52A0 /* NewsImageTableViewCell.xib */; };
 		4859F51C28449BCE006F52A0 /* NewsLikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4859F51A28449BCE006F52A0 /* NewsLikeTableViewCell.swift */; };
 		4859F51D28449BCE006F52A0 /* NewsLikeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4859F51B28449BCE006F52A0 /* NewsLikeTableViewCell.xib */; };
+		4859F5202844AB3F006F52A0 /* LikeMassadgeRepostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4859F51F2844AB3E006F52A0 /* LikeMassadgeRepostView.swift */; };
+		4859F5222844ABAD006F52A0 /* LikeMassadgeRepostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4859F5212844ABAD006F52A0 /* LikeMassadgeRepostView.xib */; };
 		4879539127CBE466007D2299 /* LikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4879539027CBE466007D2299 /* LikeView.swift */; };
 		4879539327CBE47F007D2299 /* LikeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4879539227CBE47F007D2299 /* LikeView.xib */; };
 		488EF59227B697AE003CDF75 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488EF59127B697AE003CDF75 /* FriendsListViewController.swift */; };
@@ -61,6 +63,8 @@
 		4859F51728449BBA006F52A0 /* NewsImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsImageTableViewCell.xib; sourceTree = "<group>"; };
 		4859F51A28449BCE006F52A0 /* NewsLikeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLikeTableViewCell.swift; sourceTree = "<group>"; };
 		4859F51B28449BCE006F52A0 /* NewsLikeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsLikeTableViewCell.xib; sourceTree = "<group>"; };
+		4859F51F2844AB3E006F52A0 /* LikeMassadgeRepostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeMassadgeRepostView.swift; sourceTree = "<group>"; };
+		4859F5212844ABAD006F52A0 /* LikeMassadgeRepostView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeMassadgeRepostView.xib; sourceTree = "<group>"; };
 		4879539027CBE466007D2299 /* LikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeView.swift; sourceTree = "<group>"; };
 		4879539227CBE47F007D2299 /* LikeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikeView.xib; sourceTree = "<group>"; };
 		488EF59127B697AE003CDF75 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
@@ -158,9 +162,19 @@
 			path = NewsCell;
 			sourceTree = "<group>";
 		};
+		4859F51E2844AA4E006F52A0 /* LikeMassadgeRepostView */ = {
+			isa = PBXGroup;
+			children = (
+				4859F51F2844AB3E006F52A0 /* LikeMassadgeRepostView.swift */,
+				4859F5212844ABAD006F52A0 /* LikeMassadgeRepostView.xib */,
+			);
+			path = LikeMassadgeRepostView;
+			sourceTree = "<group>";
+		};
 		4879538F27CBD81B007D2299 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				4859F51E2844AA4E006F52A0 /* LikeMassadgeRepostView */,
 				4879539427CBF26A007D2299 /* LikeView */,
 			);
 			path = CustomView;
@@ -323,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4859F51328449B7D006F52A0 /* NewsTextTableViewCell.xib in Resources */,
+				4859F5222844ABAD006F52A0 /* LikeMassadgeRepostView.xib in Resources */,
 				484C157727A8596B00F37CF3 /* LaunchScreen.storyboard in Resources */,
 				4879539327CBE47F007D2299 /* LikeView.xib in Resources */,
 				48AB3EBD27B6723400B0125C /* GroupsAndFriendsTableViewCell.xib in Resources */,
@@ -401,6 +416,7 @@
 				488EF59427B69967003CDF75 /* FriendsList.swift in Sources */,
 				484C156B27A8596A00F37CF3 /* AppDelegate.swift in Sources */,
 				48AB3EC027B67A4F00B0125C /* Group.swift in Sources */,
+				4859F5202844AB3F006F52A0 /* LikeMassadgeRepostView.swift in Sources */,
 				48CE605227BE7DD4000ED6B4 /* Constant.swift in Sources */,
 				48AB3EBC27B6723400B0125C /* GroupsAndFriendsTableViewCell.swift in Sources */,
 				484C156D27A8596A00F37CF3 /* SceneDelegate.swift in Sources */,

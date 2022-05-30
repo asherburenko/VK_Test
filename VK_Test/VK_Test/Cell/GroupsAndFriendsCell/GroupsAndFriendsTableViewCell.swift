@@ -60,6 +60,12 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         self.completion = completion
     }
     
+    func setDataNews(avatar: String, name: String, date: String) {
+        imageViewCell.image = UIImage(named: avatar)
+        titleLabelCell.text = name
+        descriptionLabelCell.text = date
+    }
+    
     private func setupUi() {
         titleLabelCell.textColor = .white
         descriptionLabelCell.textColor = .lightGray

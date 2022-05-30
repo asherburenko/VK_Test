@@ -33,7 +33,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="nawsTextLabel" destination="gUq-hW-Fae" id="Rty-fV-Wuz"/>
+                <outlet property="nawsTextLabel" destination="gUq-hW-Fae" id="DYj-dd-qNp"/>
+                <outlet property="newsTextLabel" destination="gUq-hW-Fae" id="A0m-8f-DO6"/>
             </connections>
             <point key="canvasLocation" x="139" y="82"/>
         </tableViewCell>
