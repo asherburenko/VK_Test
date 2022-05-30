@@ -9,21 +9,39 @@ import UIKit
 
 class NewsViewController: UIViewController {
 
+    @IBOutlet weak var newsTableView: UITableView!
+    
+    let newsIdentifier = "newsIdentifier"
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        newsTableView.dataSource = self
+        newsTableView.delegate = self
+    }
+}
 
-        // Do any additional setup after loading the view.
+extension NewsViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
     }
-    */
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+}
 
+extension NewsViewController: UITableViewDelegate {
+    
+}
+
+extension NewsViewController {
+    func registerCell() {
+        newsTableView.register(UINib(nibName: "GroupsAndFriendsTableViewCell", bundle: nil), forCellReuseIdentifier: newsIdentifier)
+
+    }
 }

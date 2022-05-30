@@ -5,7 +5,6 @@
 //  Created by Александр Шербуренко on 11.02.2022.
 //
 
-// ioi
 
 import UIKit
 import Alamofire
