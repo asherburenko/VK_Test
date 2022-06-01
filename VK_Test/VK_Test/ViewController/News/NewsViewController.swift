@@ -22,6 +22,7 @@ class NewsViewController: UIViewController {
     
     let host = "https://api.vk.com"
     
+    
     private lazy var news = try? Realm().objects(NewsRealm.self)
     
     override func viewDidLoad() {
@@ -38,6 +39,7 @@ class NewsViewController: UIViewController {
 extension NewsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        print(news?.count ?? 0)
         return news?.count ?? 0
     }
     
@@ -112,40 +114,41 @@ extension NewsViewController {
 }
 
 extension NewsViewController {
-    func getNewsFeed() {
-        let path = "/method/newsfeed.get"
-        
-        let parameters = [
-            "user_id": String(Session.shared.userID),
-            "filters": "post",
-            "max_photos": "1",
-            "source_ids": "friends,groups,pages",
-            "count": "2",
-            "fields": "name, photo_100",
-            "access_token": Session.shared.token,
-            "v": "5.131"
-        ]
-        
-        AF
-            .request(host + path,
-                     method: .get,
-                     parameters: parameters)
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    let json = JSON(data)
-                    let news = News(json)
-                    var index = 0
-                    for _ in news.name {
-                        self.realmSave(data: news, index: index)
-                        index += 1
+        func getNewsFeed() {
+                let path = "/method/newsfeed.get"
+                
+                let parameters = [
+                    "user_id": String(Session.shared.userID),
+                    "filters": "post",
+                    "max_photos": "1",
+                    "source_ids": "friends,groups,pages",
+                    "count": "5",
+                    "fields": "name, photo_100",
+                    "access_token": Session.shared.token,
+                    "v": "5.131"
+                ]
+                
+                AF
+                    .request(host + path,
+                             method: .get,
+                             parameters: parameters)
+                    .responseData { response in
+                        switch response.result {
+                        case .success(let data):
+                            let json = JSON(data)
+                            let news = News(json)
+                            var index = 0
+                            for _ in news.sourceID {
+                                self.realmSave(data: news, index: index)
+                                index += 1
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
                     }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-    }
+        }
 }
+
 
 extension NewsViewController {
     static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
