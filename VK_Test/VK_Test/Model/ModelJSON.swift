@@ -8,6 +8,35 @@
 import Foundation
 import SwiftyJSON
 
+struct News {
+    let sourceID: [String]
+    let name: [String]
+    let avatar: [String]
+    let date: [String]
+    let text: [String]
+    let likes: [Int]
+    let comments: [Int]
+    let reposts: [Int]
+    let views: [Int]
+    let typePhoto: [[[String]]]
+    let photo: [[[String]]]
+    
+    init(_ json: JSON) {
+        self.sourceID = json["response"]["items"].arrayValue.map({$0["source_id"].stringValue})
+        self.name = json["response"]["groups"].arrayValue.map({$0["name"].stringValue})
+        self.avatar = json["response"]["groups"].arrayValue.map({$0["photo_100"].stringValue})
+        self.date = json["response"]["items"].arrayValue.map({$0["date"].stringValue})
+        self.text = json["response"]["items"].arrayValue.map({$0["text"].stringValue})
+        self.likes = json["response"]["items"].arrayValue.map({$0["likes"]["count"].intValue})
+        self.comments = json["response"]["items"].arrayValue.map({$0["comments"]["count"].intValue})
+        self.reposts = json["response"]["items"].arrayValue.map({$0["reposts"]["count"].intValue})
+        self.views = json["response"]["items"].arrayValue.map({$0["views"]["count"].intValue})
+        self.typePhoto = json["response"]["items"].arrayValue.map({$0["attachments"].arrayValue.map({$0["photo"]["sizes"].arrayValue.map({$0["type"].stringValue})})})
+        self.photo = json["response"]["items"].arrayValue.map({$0["attachments"].arrayValue.map({$0["photo"]["sizes"].arrayValue.map({$0["url"].stringValue})})})
+    }
+    
+}
+
 struct Friends0 {
     let count: Int
     let firstName: [String]

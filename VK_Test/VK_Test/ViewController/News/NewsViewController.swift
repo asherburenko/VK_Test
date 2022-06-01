@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import RealmSwift
 
 class NewsViewController: UIViewController {
 
@@ -17,12 +20,15 @@ class NewsViewController: UIViewController {
     let newsImageIdentifier = "newsImageIdentifier"
     let newsLikeIdentifier = "newsLikeIdentifier"
     
-    var selectedIndex = NSIndexPath()
-
+    let host = "https://api.vk.com"
+    
+    private lazy var news = try? Realm().objects(NewsRealm.self)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         newsTableView.dataSource = self
         newsTableView.delegate = self
+        getNewsFeed()
         registerCell()
         setup()
         newsTableView.reloadData()
@@ -32,7 +38,7 @@ class NewsViewController: UIViewController {
 extension NewsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return news?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,26 +46,30 @@ extension NewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsAvatarIdentifier, for: indexPath) as? GroupsAndFriendsTableViewCell else {return UITableViewCell()}
-        
-            cell.setDataNews(avatar: "cars", name: "Cars Lovers", date: "сегодня в 02:35")
+            
+            cell.setDataNews(news: (news?[indexPath.item])!)
             return cell
-        } else if indexPath.row == 1 {
+        case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsTextIdentifier, for: indexPath) as? NewsTextTableViewCell else {return UITableViewCell()}
             
-            cell.setDataNewsText(text: "В ГИБДД России оценили новую моду среди автомобилистов по установке так называемых 3D-госномеров. С таким запросом ранее Autonews.ru обратился в ведомство после общения с инспекторами ГИБДД, которые сообщили о необычных табличках с объемными пластиковыми накладками. В ведомстве предупредили: с таким госномером не по ГОСТу отделаться более легкой статьей за нечитаемые номера и штрафом в 500 руб. не получится. Водителей за такие номера будут наказывать лишением прав от шести месяцев до года согласно более жесткой норме законодательства: ч.4 ст. 12.2 КоАП «Управление транспортным средством с заведомо подложными государственными регистрационными знаками».")
+            cell.setDataNewsText(news: (news?[indexPath.item])!)
             return cell
-        } else if indexPath.row == 2 {
+        case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsImageIdentifier, for: indexPath) as? NewsImageTableViewCell else {return UITableViewCell()}
             
-            cell.setDataNewsImage(image: "CarsNews")
+            cell.setDataNewsImage(news: (news?[indexPath.item])!)
             return cell
-        } else {
+        case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsLikeIdentifier, for: indexPath) as? NewsLikeTableViewCell else {return UITableViewCell()}
             
-            cell.setDataLike(like: 123, message: 456, repost: 789, views: 58)
+            cell.setDataLike(news: (news?[indexPath.item])!)
             return cell
+        default:
+            print("Error newsTableView")
+            return UITableViewCell()
         }
     }
 }
@@ -67,14 +77,17 @@ extension NewsViewController: UITableViewDataSource {
 extension NewsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
             return 100
-        } else if indexPath.row == 1 {
+        case 1:
             return 200
-        } else if indexPath.row == 2 {
+        case 2:
             return 250
-        } else {
+        case 3:
             return 70
+        default:
+            return 100
         }
     }
     
@@ -95,6 +108,75 @@ extension NewsViewController {
         newsTableView.register(UINib(nibName: "NewsTextTableViewCell", bundle: nil), forCellReuseIdentifier: newsTextIdentifier)
         newsTableView.register(UINib(nibName: "NewsImageTableViewCell", bundle: nil), forCellReuseIdentifier: newsImageIdentifier)
         newsTableView.register(UINib(nibName: "NewsLikeTableViewCell", bundle: nil), forCellReuseIdentifier: newsLikeIdentifier)
+    }
+}
+
+extension NewsViewController {
+    func getNewsFeed() {
+        let path = "/method/newsfeed.get"
+        
+        let parameters = [
+            "user_id": String(Session.shared.userID),
+            "filters": "post",
+            "max_photos": "1",
+            "source_ids": "friends,groups,pages",
+            "count": "2",
+            "fields": "name, photo_100",
+            "access_token": Session.shared.token,
+            "v": "5.131"
+        ]
+        
+        AF
+            .request(host + path,
+                     method: .get,
+                     parameters: parameters)
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    let json = JSON(data)
+                    let news = News(json)
+                    var index = 0
+                    for _ in news.name {
+                        self.realmSave(data: news, index: index)
+                        index += 1
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+    }
+}
+
+extension NewsViewController {
+    static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+    
+    func realmSave(data: News, index: Int, configuration: Realm.Configuration = deleteIfMigration, update: Realm.UpdatePolicy = .modified) {
+        let news = NewsRealm()
+        news.sourceID = data.sourceID[index]
+        news.name = data.name[index]
+        news.avatar = data.avatar[index]
+        news.date = data.date[index]
+        news.text = data.text[index]
+        news.likes = data.likes[index]
+        news.comments = data.comments[index]
+        news.reposts = data.reposts[index]
+        news.views = data.views[index]
+        news.typePhoto = "x"
+        news.photo = "https://cdn.ananasposter.ru/image/cache/catalog/poster/travel/85/9427-1000x830.jpg"
+        
+        let realm = try? Realm(configuration: configuration)
+        try? realm?.write({
+            realm?.add(news)
+        })
+    }
+}
+
+extension NewsViewController {
+    func realmErase() {
+        let realm = try? Realm()
+        try? realm?.write({
+            realm?.deleteAll()
+        })
     }
 }
 

@@ -58,7 +58,9 @@ extension FriendsListViewController: UITableViewDataSource {
     
         cell.setDataFriendsList(friendsList: (friend?[indexPath.item])!, completion: {[weak self] in
             guard let self = self else {return}
-            self.performSegue(withIdentifier: self.friendsGalleryId, sender: self.friend?[indexPath.item])
+            guard let foto: FriendRealm = self.friend?[indexPath.item] else {return}
+            
+            self.performSegue(withIdentifier: self.friendsGalleryId, sender: foto.fotos)
         })
         return cell
     }
@@ -70,9 +72,11 @@ extension FriendsListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected \(friend?[indexPath.item]) friend")
+        print("selected \(String(describing: friend?[indexPath.item])) friend")
+        
+        guard let foto = self.friend?[indexPath.item] else {return}
 
-        performSegue(withIdentifier: friendsGalleryId, sender: friend?[indexPath.item])
+        performSegue(withIdentifier: friendsGalleryId, sender: foto.fotos)
     }
 }
 
@@ -81,15 +85,21 @@ extension FriendsListViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == friendsGalleryId {
             guard let destinationVC = segue.destination as? GalleryViewController,
-                  let fotoArray = sender as? [String]
+                  let foto = sender as? String
             else { return }
-            
-            destinationVC.fotoArray = fotoArray
+    
+            destinationVC.fotoArray.append(foto)
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Friends"
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.darkGray
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

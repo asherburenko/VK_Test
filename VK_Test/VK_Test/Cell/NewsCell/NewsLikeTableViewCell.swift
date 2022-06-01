@@ -20,11 +20,6 @@ class NewsLikeTableViewCell: UITableViewCell {
     var viewsCount = 0
     var likePressed = false
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -44,26 +39,22 @@ class NewsLikeTableViewCell: UITableViewCell {
         if likePressed {
             UIView.transition(with: likeLabel, duration: 1, options: [.transitionFlipFromLeft]) {[weak self] in
                 self?.likeCount += 1
-            } completion: { _ in
-                
             }
         } else {
             UIView.transition(with: likeLabel, duration: 1, options: [.transitionFlipFromLeft]) {[weak self] in
                 self?.likeCount -= 1
-            } completion: { _ in
-                
-            }
+            } 
         }
         likeLabel.text = String(self.likeCount)
     }
 }
 
 extension NewsLikeTableViewCell {
-    func setDataLike (like: Int, message: Int, repost: Int, views: Int) {
-        self.likeCount = like
-        self.messageCount = message
-        self.repostCount = repost
-        self.viewsCount = views
+    func setDataLike (news: NewsRealm) {
+        self.likeCount = news.likes
+        self.messageCount = news.comments
+        self.repostCount = news.reposts
+        self.viewsCount = news.views
         
         self.likeLabel.text = String(self.likeCount)
         self.messageLabel.text = String(self.messageCount)

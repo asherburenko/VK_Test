@@ -83,6 +83,12 @@ extension MyGroupViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "My Group"
     }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.darkGray
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+    }
 }
 
 extension MyGroupViewController {

@@ -19,8 +19,10 @@ class NewsImageTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setDataNewsImage(image: String) {
-        newsImsgeView.image = UIImage(named: image)
+    func setDataNewsImage(news: NewsRealm) {
+        let image = news.photo
+        let url = URL(string: image)
+        newsImsgeView.kf.setImage(with: url)
     }
     
     private func setupUi() {

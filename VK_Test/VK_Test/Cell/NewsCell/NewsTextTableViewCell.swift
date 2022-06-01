@@ -16,8 +16,8 @@ class NewsTextTableViewCell: UITableViewCell {
         setupUi()
     }
     
-    func setDataNewsText(text: String) {
-        newsTextLabel.text = text
+    func setDataNewsText(news: NewsRealm) {
+        newsTextLabel.text = news.text
     }
     
     private func setupUi() {

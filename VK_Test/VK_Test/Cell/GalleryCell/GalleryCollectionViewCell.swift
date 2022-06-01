@@ -15,6 +15,11 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         fotoImageView.image = image
     }
     
+    func configureURL(url: String) {
+        let url = URL(string: url)
+        fotoImageView.kf.setImage(with: url)
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         fotoImageView.image = nil

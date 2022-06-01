@@ -60,10 +60,13 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         self.completion = completion
     }
     
-    func setDataNews(avatar: String, name: String, date: String) {
-        imageViewCell.image = UIImage(named: avatar)
-        titleLabelCell.text = name
-        descriptionLabelCell.text = date
+    func setDataNews(news: NewsRealm) {
+        let avatarPath = news.avatar
+        let url = URL(string: avatarPath)
+        imageViewCell.kf.setImage(with: url)
+        
+        titleLabelCell.text = news.name
+        descriptionLabelCell.text = news.date
     }
     
     private func setupUi() {
