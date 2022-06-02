@@ -10,8 +10,10 @@ import SwiftyJSON
 
 struct News {
     let sourceID: [String]
-    let name: [String]
-    let avatar: [String]
+    let nameGroup: [String]
+    let nameFriend: [String]
+    let avatarGroup: [String]
+    let avatarFriend: [String]
     let date: [String]
     let text: [String]
     let likes: [Int]
@@ -22,8 +24,10 @@ struct News {
     
     init(_ json: JSON) {
         self.sourceID = json["response"]["items"].arrayValue.map({$0["source_id"].stringValue})
-        self.name = json["response"]["groups"].arrayValue.map({$0["name"].stringValue})
-        self.avatar = json["response"]["groups"].arrayValue.map({$0["photo_100"].stringValue})
+        self.nameGroup = json["response"]["groups"].arrayValue.map({$0["name"].stringValue})
+        self.nameFriend = json["response"]["profiles"].arrayValue.map({$0["last_name"].stringValue})
+        self.avatarGroup = json["response"]["groups"].arrayValue.map({$0["photo_100"].stringValue})
+        self.avatarFriend = json["response"]["profiles"].arrayValue.map({$0["photo_100"].stringValue})
         self.date = json["response"]["items"].arrayValue.map({$0["date"].stringValue})
         self.text = json["response"]["items"].arrayValue.map({$0["text"].stringValue})
         self.likes = json["response"]["items"].arrayValue.map({$0["likes"]["count"].intValue})

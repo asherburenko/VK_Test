@@ -118,35 +118,36 @@ extension FriendsListViewController {
 
 extension FriendsListViewController {
     func getFriendsList() {
-        
-        let path = "/method/friends.get"
-        
-        let parameters = [
-            "user_id": String(Session.shared.userID),
-            "order": "random",
-            "fields": "last_name, photo_100",
-            "access_token": Session.shared.token,
-            "v": "5.131"
-        ]
-        
-        AF
-            .request(host + path,
-                     method: .get,
-                     parameters: parameters)
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    let json = JSON(data)
-                    let friends = Friends0(json)
-                    var index = 0
-                    for _ in friends.firstName {
-                        self.realmSave(data: friends, index: index)
-                        index += 1
+        DispatchQueue.global(qos: .userInteractive).async {
+            let path = "/method/friends.get"
+            
+            let parameters = [
+                "user_id": String(Session.shared.userID),
+                "order": "random",
+                "fields": "last_name, photo_100",
+                "access_token": Session.shared.token,
+                "v": "5.131"
+            ]
+            
+            AF
+                .request(self.host + path,
+                         method: .get,
+                         parameters: parameters)
+                .responseData { response in
+                    switch response.result {
+                    case .success(let data):
+                        let json = JSON(data)
+                        let friends = Friends0(json)
+                        var index = 0
+                        for _ in friends.firstName {
+                            self.realmSave(data: friends, index: index)
+                            index += 1
+                        }
+                    case .failure(let error):
+                        print(error)
                     }
-                case .failure(let error):
-                    print(error)
                 }
-            }
+        }
     }
 }
 

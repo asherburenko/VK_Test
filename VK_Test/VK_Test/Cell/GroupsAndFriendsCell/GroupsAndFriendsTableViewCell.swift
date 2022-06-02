@@ -61,19 +61,16 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
     }
     
     func setDataNews(news: NewsRealm) {
-        let avatarPath = news.avatar
+        let avatarPath = news.avatarGroup
         let url = URL(string: avatarPath)
         imageViewCell.kf.setImage(with: url)
         
         let date = NSDate(timeIntervalSince1970: Double(news.date) ?? 0)
         let dataFormater = DateFormatter()
-//        dataFormater.timeStyle = .short
-//        dataFormater.dateStyle = .medium
-//        dataFormater.timeZone = .current
-        dataFormater.dateFormat = "MMM dd YYYY hh:mm a"
+        dataFormater.dateFormat = "dd MMM YYYYг. hh:mm"
         let localDate = dataFormater.string(from: date as Date)
         
-        titleLabelCell.text = news.name
+        titleLabelCell.text = news.nameGroup
         descriptionLabelCell.text = localDate
     }
     

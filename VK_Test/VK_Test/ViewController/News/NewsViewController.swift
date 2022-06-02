@@ -114,13 +114,14 @@ extension NewsViewController {
 
 extension NewsViewController {
         func getNewsFeed() {
+            DispatchQueue.global(qos: .userInteractive).async {
                 let path = "/method/newsfeed.get"
                 
                 let parameters = [
                     "user_id": String(Session.shared.userID),
                     "filters": "post",
                     "max_photos": "1",
-                    "source_ids": "friends,groups,pages",
+                    "source_ids": "groups",
                     "count": "5",
                     "fields": "name, photo_100",
                     "access_token": Session.shared.token,
@@ -128,7 +129,7 @@ extension NewsViewController {
                 ]
                 
                 AF
-                    .request(host + path,
+                    .request(self.host + path,
                              method: .get,
                              parameters: parameters)
                     .responseData { response in
@@ -146,31 +147,38 @@ extension NewsViewController {
                             print(error)
                         }
                     }
+            }
         }
 }
 
 
 extension NewsViewController {
+    
     static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
     
     func realmSave(data: News, index: Int, configuration: Realm.Configuration = deleteIfMigration, update: Realm.UpdatePolicy = .modified) {
         let news = NewsRealm()
-        news.sourceID = data.sourceID[index]
-        news.name = data.name[index]
-        news.avatar = data.avatar[index]
-        news.date = data.date[index]
-        news.text = data.text[index]
-        news.likes = data.likes[index]
-        news.comments = data.comments[index]
-        news.reposts = data.reposts[index]
-        news.views = data.views[index]
+        let indexTrue = index
+        
+        let name = data.nameFriend + data.nameGroup
+        let avatar = data.avatarFriend + data.avatarGroup
+        
+        news.sourceID = data.sourceID[indexTrue]
+        news.nameGroup = name[indexTrue]
+        news.avatarGroup = avatar[indexTrue]
+        news.date = data.date[indexTrue]
+        news.text = data.text[indexTrue]
+        news.likes = data.likes[indexTrue]
+        news.comments = data.comments[indexTrue]
+        news.reposts = data.reposts[indexTrue]
+        news.views = data.views[indexTrue]
         news.typePhoto = "x"
         news.photo = "https://cdn.ananasposter.ru/image/cache/catalog/poster/travel/85/9427-1000x830.jpg"
         
         let realm = try? Realm(configuration: configuration)
-        guard let oldNews = realm?.objects(NewsRealm.self).filter("date == %@", data.text[index]) else { return }
+//        guard let oldNews = realm?.objects(NewsRealm.self).filter("text == %@", data.text[index]) else { return }
         try? realm?.write({
-            realm?.delete(oldNews)
+            //realm?.delete(oldNews)
             realm?.add(news)
         })
     }
