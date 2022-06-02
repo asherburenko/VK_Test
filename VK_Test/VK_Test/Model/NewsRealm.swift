@@ -37,6 +37,6 @@ class NewsRealm: Object {
     }
     
     override class func primaryKey() -> String? {
-        "sourceID"
+        "text"
     }
 }

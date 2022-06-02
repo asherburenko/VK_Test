@@ -65,8 +65,16 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         let url = URL(string: avatarPath)
         imageViewCell.kf.setImage(with: url)
         
+        let date = NSDate(timeIntervalSince1970: Double(news.date) ?? 0)
+        let dataFormater = DateFormatter()
+//        dataFormater.timeStyle = .short
+//        dataFormater.dateStyle = .medium
+//        dataFormater.timeZone = .current
+        dataFormater.dateFormat = "MMM dd YYYY hh:mm a"
+        let localDate = dataFormater.string(from: date as Date)
+        
         titleLabelCell.text = news.name
-        descriptionLabelCell.text = news.date
+        descriptionLabelCell.text = localDate
     }
     
     private func setupUi() {

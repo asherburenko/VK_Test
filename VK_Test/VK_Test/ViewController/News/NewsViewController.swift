@@ -39,7 +39,6 @@ class NewsViewController: UIViewController {
 extension NewsViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        print(news?.count ?? 0)
         return news?.count ?? 0
     }
     
@@ -52,22 +51,22 @@ extension NewsViewController: UITableViewDataSource {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsAvatarIdentifier, for: indexPath) as? GroupsAndFriendsTableViewCell else {return UITableViewCell()}
             
-            cell.setDataNews(news: (news?[indexPath.item])!)
+            cell.setDataNews(news: (news?[indexPath.section])!)
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsTextIdentifier, for: indexPath) as? NewsTextTableViewCell else {return UITableViewCell()}
             
-            cell.setDataNewsText(news: (news?[indexPath.item])!)
+            cell.setDataNewsText(news: (news?[indexPath.section])!)
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsImageIdentifier, for: indexPath) as? NewsImageTableViewCell else {return UITableViewCell()}
             
-            cell.setDataNewsImage(news: (news?[indexPath.item])!)
+            cell.setDataNewsImage(news: (news?[indexPath.section])!)
             return cell
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsLikeIdentifier, for: indexPath) as? NewsLikeTableViewCell else {return UITableViewCell()}
             
-            cell.setDataLike(news: (news?[indexPath.item])!)
+            cell.setDataLike(news: (news?[indexPath.section])!)
             return cell
         default:
             print("Error newsTableView")
@@ -135,6 +134,7 @@ extension NewsViewController {
                     .responseData { response in
                         switch response.result {
                         case .success(let data):
+                            self.realmErase()
                             let json = JSON(data)
                             let news = News(json)
                             var index = 0
@@ -168,7 +168,9 @@ extension NewsViewController {
         news.photo = "https://cdn.ananasposter.ru/image/cache/catalog/poster/travel/85/9427-1000x830.jpg"
         
         let realm = try? Realm(configuration: configuration)
+        guard let oldNews = realm?.objects(NewsRealm.self).filter("date == %@", data.text[index]) else { return }
         try? realm?.write({
+            realm?.delete(oldNews)
             realm?.add(news)
         })
     }
