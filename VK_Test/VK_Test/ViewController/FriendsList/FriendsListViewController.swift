@@ -25,6 +25,7 @@ class FriendsListViewController: UIViewController {
     var resultNotificationToken: NotificationToken?
     var objectNotificationTocen: NotificationToken?
     
+    static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
     private lazy var friend = try? Realm().objects(FriendRealm.self)
     
     override func viewDidLoad() {
@@ -118,61 +119,31 @@ extension FriendsListViewController {
 
 extension FriendsListViewController {
     func getFriendsList() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            let path = "/method/friends.get"
-            
-            let parameters = [
-                "user_id": String(Session.shared.userID),
-                "order": "random",
-                "fields": "last_name, photo_100",
-                "access_token": Session.shared.token,
-                "v": "5.131"
-            ]
-            
-            AF
-                .request(self.host + path,
-                         method: .get,
-                         parameters: parameters)
-                .responseData { response in
-                    switch response.result {
-                    case .success(let data):
-                        let json = JSON(data)
-                        let friends = Friends0(json)
-                        var index = 0
-                        for _ in friends.firstName {
-                            self.realmSave(data: friends, index: index)
-                            index += 1
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-        }
-    }
-}
-
-extension FriendsListViewController {
-    
-    static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-    
-    func realmSave(data: Friends0, index: Int, configuration: Realm.Configuration = deleteIfMigration, update: Realm.UpdatePolicy = .modified) {
-        let friend = FriendRealm()
-        friend.name = data.firstName[index] + " " + data.lastName[index]
-        friend.id = data.id[index]
-        friend.avatarImagePath = data.photo[index]
-        friend.fotos = "https://cdn.ananasposter.ru/image/cache/catalog/poster/travel/85/9427-1000x830.jpg"
-        friend.massadge = "Hi"
         
-        let realm = try? Realm(configuration: configuration)
-        print(configuration.fileURL ?? "1111")
-        guard let oldFriend = realm?.objects(FriendRealm.self).filter("id == %@", data.id[index]) else { return }
-        try? realm?.write({
-            realm?.delete(oldFriend)
-            realm?.add(friend)
-        })
+        let queue: OperationQueue = {
+            let queue = OperationQueue()
+            queue.maxConcurrentOperationCount = 1
+            queue.name = "serialQueue"
+            return queue
+        }()
+        
+        let getAPIDataFriends = GetAPIDataFriends(host: "https://api.vk.com",
+                                                  path: "/method/friends.get",
+                                                  parameters: [
+                                        "user_id": String(Session.shared.userID),
+                                        "order": "random",
+                                        "fields": "last_name, photo_100",
+                                        "access_token": Session.shared.token,
+                                        "v": "5.131"
+                                    ])
+        let realmSaveFriends = RealmSaveFriends()
+        
+        realmSaveFriends.addDependency(getAPIDataFriends)
+        
+        queue.addOperation(getAPIDataFriends)
+        queue.addOperation(realmSaveFriends)
     }
 }
-
 
 extension FriendsListViewController {
     private func notification() {
