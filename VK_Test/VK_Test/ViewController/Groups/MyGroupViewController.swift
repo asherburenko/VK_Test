@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import RealmSwift
+import PromiseKit
 
 class MyGroupViewController: UIViewController {
     
@@ -17,7 +18,6 @@ class MyGroupViewController: UIViewController {
     @IBOutlet weak var myGroupSearchBar: UISearchBar!
     
     let myGroupsCellIdentifier = "myGroupsCellIdentifier"
-    let host = "https://api.vk.com"
 
     var myGroupArray = [Group]()
     
@@ -25,11 +25,19 @@ class MyGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getGroupsList()
+        getUrl()
+            .then(on: .global(), getData(_:))
+            .then(self.getParsedData(_:))
+            .then(self.getRealm(_:))
+            .done(on: .main) { groups in
+                print("Complite")
+            }.catch { error in
+                print(error)
+            }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         myGroupTableView.dataSource = self
         myGroupTableView.delegate = self
         notification()
@@ -98,9 +106,21 @@ extension MyGroupViewController {
 }
 
 extension MyGroupViewController {
-    func getGroupsList() {
+    func getUrl() -> Promise<String> {
+        let host = "https://api.vk.com"
         let path = "/method/groups.get"
+        let url = host + path
         
+        return Promise { resolver in
+            guard url != nil else {
+                resolver.reject(("Not Coreect URL") as! Error)
+                return
+            }
+            resolver.fulfill(url)
+        }
+    }
+    
+    func getData(_ url: String) -> Promise<Data> {
         let parameters = [
             "user_id": String(Session.shared.userID),
             "extended": "1",
@@ -108,24 +128,47 @@ extension MyGroupViewController {
             "v": "5.131"
         ]
         
-        AF
-            .request(host + path,
-                     method: .get,
-                     parameters: parameters)
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    let json = JSON(data)
-                    let groups = Groups(json)
-                    var i = 0
-                    for _ in groups.name {
-                        self.realmSave(data: groups, index: i)
-                        i = i + 1
+        return Promise { resolver in
+            AF
+                .request(url,
+                         method: .get,
+                         parameters: parameters)
+                .responseData { response in
+                    switch response.result {
+                    case .success(let data):
+                        resolver.fulfill(data)
+                    case .failure(let error):
+                        print(error)
+                        resolver.reject(error)
                     }
-                case .failure(let error):
-                    print(error)
-                }
+                }.resume()
+        }
+    }
+    
+    func getParsedData(_ data: Data) -> Promise<Groups> {
+        let json = JSON(data)
+        let groups = Groups(json)
+        
+        return Promise { resolver in
+            guard groups != nil else {
+                resolver.reject(("ErrorParsed") as! Error)
+                return
             }
+            resolver.fulfill(groups)
+        }
+    }
+    
+    func getRealm(_ data: Groups) -> Promise<Groups> {
+        var index = 0
+        
+        return Promise { resolver in
+            for _ in data.name {
+                self.realmSave(data: data, index: index)
+                index += 1
+            }
+            myGroupTableView.reloadData()
+            resolver.fulfill(data)
+        }
     }
 }
 

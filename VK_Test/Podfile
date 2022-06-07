@@ -9,6 +9,7 @@ target 'VK_Test' do
   pod 'SwiftyJSON', '~> 5.0.0'
   pod 'Kingfisher', '~> 6.0.1'
   pod 'RealmSwift', '~>10'
+  pod 'PromiseKit', '~>6.8'
 
   # Pods for VK_Test
 

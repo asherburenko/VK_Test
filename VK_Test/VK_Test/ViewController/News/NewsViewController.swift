@@ -122,7 +122,7 @@ extension NewsViewController {
                     "filters": "post",
                     "max_photos": "1",
                     "source_ids": "groups",
-                    "count": "20",
+                    "count": "10",
                     "fields": "name, photo_100",
                     "access_token": Session.shared.token,
                     "v": "5.131"

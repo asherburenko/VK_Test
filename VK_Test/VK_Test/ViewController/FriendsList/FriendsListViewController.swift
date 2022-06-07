@@ -122,7 +122,6 @@ extension FriendsListViewController {
         
         let queue: OperationQueue = {
             let queue = OperationQueue()
-            queue.maxConcurrentOperationCount = 1
             queue.name = "serialQueue"
             return queue
         }()
