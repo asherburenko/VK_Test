@@ -10,8 +10,6 @@ import Kingfisher
 
 class GroupsAndFriendsTableViewCell: UITableViewCell {
 
-    
-
     @IBOutlet weak var descriptionLabelCell: UILabel!
     @IBOutlet weak var titleLabelCell: UILabel!
     @IBOutlet weak var imageViewCell: UIImageView!
@@ -64,6 +62,18 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
         let avatarPath = news.avatarGroup
         let url = URL(string: avatarPath)
         imageViewCell.kf.setImage(with: url)
+        
+        let date = NSDate(timeIntervalSince1970: Double(news.date) ?? 0)
+        let dataFormater = DateFormatter()
+        dataFormater.dateFormat = "dd MMM YYYYг. hh:mm"
+        let localDate = dataFormater.string(from: date as Date)
+        
+        titleLabelCell.text = news.nameGroup
+        descriptionLabelCell.text = localDate
+    }
+    
+    func setDataNewsFileManager(news: NewsRealm, avatar: UIImage?) {
+        imageViewCell.image = avatar
         
         let date = NSDate(timeIntervalSince1970: Double(news.date) ?? 0)
         let dataFormater = DateFormatter()

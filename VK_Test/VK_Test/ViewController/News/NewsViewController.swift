@@ -24,11 +24,13 @@ class NewsViewController: UIViewController {
     
     
     private lazy var news = try? Realm().objects(NewsRealm.self)
+    private var photoService: PhotoService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         newsTableView.dataSource = self
         newsTableView.delegate = self
+        photoService = PhotoService(container: newsTableView)
         getNewsFeed()
         registerCell()
         setup()
@@ -51,7 +53,9 @@ extension NewsViewController: UITableViewDataSource {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsAvatarIdentifier, for: indexPath) as? GroupsAndFriendsTableViewCell else {return UITableViewCell()}
             
-            cell.setDataNews(news: (news?[indexPath.section])!)
+            guard let urlImage = news?[indexPath.section].avatarGroup else { return UITableViewCell() }
+            let avatar = photoService?.photo(atIndexPath: indexPath, byUrl: urlImage)
+            cell.setDataNewsFileManager(news: (news?[indexPath.section])!, avatar: avatar)
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: newsTextIdentifier, for: indexPath) as? NewsTextTableViewCell else {return UITableViewCell()}
