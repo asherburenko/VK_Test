@@ -11,6 +11,8 @@ class GalleryCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var fotoImageView: UIImageView!
     
+    static let identifier = "GalleryCollectionViewCellID"
+    
     func configure(image: UIImage?) {
         fotoImageView.image = image
     }

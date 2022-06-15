@@ -435,8 +435,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="MNU-3B-0Mu" kind="relationship" relationship="viewControllers" id="R2M-7P-sXv"/>
-                        <segue destination="u43-hW-DGh" kind="relationship" relationship="viewControllers" id="not-Sh-CrY"/>
                         <segue destination="pMx-s2-tbT" kind="relationship" relationship="viewControllers" id="lu5-nR-vzX"/>
+                        <segue destination="u43-hW-DGh" kind="relationship" relationship="viewControllers" id="not-Sh-CrY"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azL-2C-W4j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

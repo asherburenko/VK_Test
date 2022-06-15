@@ -14,6 +14,8 @@ class NewsLikeTableViewCell: UITableViewCell {
     @IBOutlet weak var repostLabel: UILabel!
     @IBOutlet weak var viewsLabel: UILabel!
     
+    static let identifier = "NewsLikeTableViewCellID"
+    
     var likeCount = 0
     var messageCount = 0
     var repostCount = 0

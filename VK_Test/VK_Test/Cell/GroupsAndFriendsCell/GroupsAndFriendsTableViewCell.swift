@@ -14,6 +14,8 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabelCell: UILabel!
     @IBOutlet weak var imageViewCell: UIImageView!
     
+    static let identifier = "GroupsAndFriendsTableViewCellID"
+    
     var completion: (() -> Void)?
     
     override func awakeFromNib() {
@@ -59,28 +61,28 @@ class GroupsAndFriendsTableViewCell: UITableViewCell {
     }
     
     func setDataNews(news: NewsRealm) {
-        let avatarPath = news.avatarGroup
+        let avatarPath = news.avatar
         let url = URL(string: avatarPath)
         imageViewCell.kf.setImage(with: url)
         
-        let date = NSDate(timeIntervalSince1970: Double(news.date) ?? 0)
+        let date = NSDate(timeIntervalSince1970: Double(news.date) )
         let dataFormater = DateFormatter()
         dataFormater.dateFormat = "dd MMM YYYYг. hh:mm"
         let localDate = dataFormater.string(from: date as Date)
         
-        titleLabelCell.text = news.nameGroup
+        titleLabelCell.text = news.name
         descriptionLabelCell.text = localDate
     }
     
     func setDataNewsFileManager(news: NewsRealm, avatar: UIImage?) {
         imageViewCell.image = avatar
         
-        let date = NSDate(timeIntervalSince1970: Double(news.date) ?? 0)
+        let date = NSDate(timeIntervalSince1970: Double(news.date) )
         let dataFormater = DateFormatter()
         dataFormater.dateFormat = "dd MMM YYYYг. hh:mm"
         let localDate = dataFormater.string(from: date as Date)
         
-        titleLabelCell.text = news.nameGroup
+        titleLabelCell.text = news.name
         descriptionLabelCell.text = localDate
     }
     

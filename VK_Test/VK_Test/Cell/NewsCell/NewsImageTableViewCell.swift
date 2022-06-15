@@ -11,6 +11,8 @@ class NewsImageTableViewCell: UITableViewCell {
 
     @IBOutlet weak var newsImsgeView: UIImageView!
     
+    static let identifier = "NewsImageTableViewCellID"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

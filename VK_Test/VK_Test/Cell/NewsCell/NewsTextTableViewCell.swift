@@ -11,6 +11,8 @@ class NewsTextTableViewCell: UITableViewCell {
 
     @IBOutlet weak var newsTextLabel: UILabel!
     
+    static let identifier = "NewsTextTableViewCellID"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUi()

@@ -38,7 +38,6 @@ class PhotoService {
     
     func photo(atIndexPath indexPath: IndexPath, byUrl url: String) -> UIImage? {
         var image: UIImage?
-        print(url)
         if let photo = images[url] {
             image = photo
         } else if let photo = getImageFromCache(url: url) {
@@ -96,7 +95,6 @@ class PhotoService {
         guard let fileName = getFilePath(url: url),
               let data = image.pngData() else { return }
         
-        print(fileName)
         FileManager.default.createFile(atPath: fileName, contents: data, attributes: nil)
     }
 }
