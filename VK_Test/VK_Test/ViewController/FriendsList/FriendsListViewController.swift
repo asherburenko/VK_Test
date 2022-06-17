@@ -21,12 +21,13 @@ class FriendsListViewController: UIViewController {
     
     var friendsListArray = [FriendsList]()
     
-    var dataBaseNotificationToken: NotificationToken?
-    var resultNotificationToken: NotificationToken?
-    var objectNotificationTocen: NotificationToken?
-    
+    private let service = NetworkingService()
     static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
     private lazy var friend = try? Realm().objects(FriendRealm.self)
+    
+    private var dataBaseNotificationToken: NotificationToken?
+    private var resultNotificationToken: NotificationToken?
+    private var objectNotificationTocen: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,18 +35,18 @@ class FriendsListViewController: UIViewController {
         friendsListTableView.delegate = self
         getFriendsList()
         registerCell()
-        notification()
+        realmNotification(tableViewNotification: friendsListTableView)
         friendsListTableView.reloadData()
-    }
-    
-    @IBAction func addFriendButton(_ sender: Any) {
-        showAddFriendForm()
     }
     
     deinit {
         dataBaseNotificationToken?.invalidate()
         resultNotificationToken?.invalidate()
         objectNotificationTocen?.invalidate()
+    }
+    
+    @IBAction func addFriendButton(_ sender: Any) {
+        showAddFriendForm()
     }
 }
 
@@ -145,7 +146,7 @@ extension FriendsListViewController {
 }
 
 extension FriendsListViewController {
-    private func notification() {
+    private func realmNotification(tableViewNotification: UITableView) {
         do {
             let realm = try Realm()
            // DataBase Notification
@@ -156,10 +157,10 @@ extension FriendsListViewController {
             let friend = realm.objects(FriendRealm.self)
                 .sorted(byKeyPath: "id")
             resultNotificationToken = friend.observe({ change in
-                guard let tableView = self.friendsListTableView else { return }
+                let tableView = tableViewNotification
                 switch change {
                 case .initial(_):
-                    self.friendsListTableView.reloadData()
+                    tableViewNotification.reloadData()
                     print("initial case")
                 case let .update(_,
                              deletions,
@@ -173,7 +174,7 @@ extension FriendsListViewController {
                     tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)} ), with: .automatic)
                     tableView.reloadRows(at: modifications.map({IndexPath(row: $0, section: 0)} ), with: .automatic)
                     tableView.endUpdates()
-                    self.friendsListTableView.reloadData()
+                    tableViewNotification.reloadData()
                 case .error(let error):
                     print(error)
                 }
@@ -182,9 +183,7 @@ extension FriendsListViewController {
             print(error)
         }
     }
-}
-
-extension FriendsListViewController {
+    
     func showAddFriendForm() {
         let alertController = UIAlertController(title: "Enter Friend Id", message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in })

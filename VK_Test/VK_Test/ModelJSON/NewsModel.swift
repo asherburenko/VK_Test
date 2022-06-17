@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct News0: Codable {
+struct News: Codable {
     let response: ResponseNews
 }
 
@@ -40,6 +40,12 @@ struct ItemNews: Codable {
         get {
             let photosURL = attachments?.compactMap{ $0.photo?.sizes?.last?.url }
             return photosURL
+        }
+    }
+    var aspectRatio: CGFloat {
+        get {
+            let aspectRatio = attachments?.compactMap{ $0.photo?.sizes?.last?.aspectRatio }.last
+            return aspectRatio ?? 1
         }
     }
     enum CodingKeys: String, CodingKey {
@@ -101,6 +107,10 @@ struct PhotoNews: Codable {
 struct SizeNews: Codable {
     let type: String?
     let url: String?
+    let width: Int?
+    let height: Int?
+    
+    var aspectRatio: CGFloat { return CGFloat(height ?? 0)/CGFloat(width ?? 0) }
 }
 
 struct ComentModel: Codable {

@@ -9,16 +9,22 @@ import UIKit
 
 class NewsImageTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var newsImsgeView: UIImageView!
+    @IBOutlet weak var newsImsgeView: UIImageView! = {
+        let newsImageView = UIImageView()
+        newsImageView.translatesAutoresizingMaskIntoConstraints = false
+        return newsImageView
+    }()
     
     static let identifier = "NewsImageTableViewCellID"
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setConstraints()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        newsImsgeView.image = nil
     }
     
     func setDataNewsImage(news: NewsRealm) {
@@ -27,7 +33,20 @@ class NewsImageTableViewCell: UITableViewCell {
         newsImsgeView.kf.setImage(with: url)
     }
     
-    private func setupUi() {
-  
+    private func setConstraints() {
+
+        contentView.addSubview(newsImsgeView)
+
+        let topConstraint = newsImsgeView.topAnchor.constraint(equalTo: contentView.topAnchor)
+
+        NSLayoutConstraint.activate([
+            topConstraint,
+            newsImsgeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            newsImsgeView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            newsImsgeView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+        ])
+
+        topConstraint.priority = .init(999)
     }
+
 }

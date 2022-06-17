@@ -123,7 +123,6 @@ class NetworkingService {
         urlConstructor.path = "/method/newsfeed.get"
 
         urlConstructor.queryItems = [
-            URLQueryItem(name: "user_id", value: String(Session.shared.userID)),
             URLQueryItem(name: "start_from", value: "next_from"),
             URLQueryItem(name: "filters", value: "post"),
             URLQueryItem(name: "count", value: "20"),
@@ -137,10 +136,10 @@ class NetworkingService {
         AF.request(url).responseData { response in
             guard let data = response.value else { return }
             do {
-                print(data)
-                var news = try JSONDecoder().decode(News0.self, from: data).response.items
-                let profiles = try? JSONDecoder().decode(News0.self, from: data).response.profiles
-                let groups = try? JSONDecoder().decode(News0.self, from: data).response.groups
+                var news = try JSONDecoder().decode(News.self, from: data).response.items
+                let profiles = try? JSONDecoder().decode(News.self, from: data).response.profiles
+                let groups = try? JSONDecoder().decode(News.self, from: data).response.groups
+                NewsViewController.nextForm = try JSONDecoder().decode(News.self, from: data).response.nextFrom 
                 
                 for index in 0..<news.count {
                     if news[index].sourceID < 0 {
@@ -153,8 +152,51 @@ class NetworkingService {
                         news[index].creatorName = (profile?.firstName ?? "") + (profile?.lastName ?? "")
                     }
                 }
+
+                for index in 0..<news.count {
+                    self.realmSaveNews(data: news[index], index: index)
+                }
                 
-                self.realmErase()
+                NewsViewController.isLoading = false
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func getNewsWriteTime(_ timeInterval1970: Int) {
+        urlConstructor.path = "/method/newsfeed.get"
+
+        urlConstructor.queryItems = [
+            URLQueryItem(name: "start_from", value: "next_from"),
+            URLQueryItem(name: "start_time", value: String(timeInterval1970)),
+            URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "count", value: "1"),
+            URLQueryItem(name: "access_token", value: Session.shared.token),
+            URLQueryItem(name: "v", value: constants.versionAPI)
+        ]
+        
+        guard let url = urlConstructor.url else { return }
+        print(url)
+        
+        AF.request(url).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                var news = try JSONDecoder().decode(News.self, from: data).response.items
+                let profiles = try? JSONDecoder().decode(News.self, from: data).response.profiles
+                let groups = try? JSONDecoder().decode(News.self, from: data).response.groups
+                
+                for index in 0..<news.count {
+                    if news[index].sourceID < 0 {
+                        let group = groups?.first(where: { $0.id == -news[index].sourceID })
+                        news[index].avatarURL = group?.avatarURL
+                        news[index].creatorName = group?.name
+                    } else {
+                        let profile = profiles?.first(where: { $0.id == news[index].sourceID })
+                        news[index].avatarURL = profile?.avatarURL
+                        news[index].creatorName = (profile?.firstName ?? "") + (profile?.lastName ?? "")
+                    }
+                }
 
                 for index in 0..<news.count {
                     self.realmSaveNews(data: news[index], index: index)
@@ -179,11 +221,56 @@ class NetworkingService {
         news.comments = data.comments.count
         news.reposts = data.reposts.count
         news.views = data.views.count
-        news.photo = data.photoURL?.last ?? "https://cdn.ananasposter.ru/image/cache/catalog/poster/travel/85/9427-1000x830.jpg"
+        news.photo = data.photoURL?.last ?? "" //"https://cdn.ananasposter.ru/image/cache/catalog/poster/travel/85/9427-1000x830.jpg"
+        news.aspectRatio = data.aspectRatio
         
         let realm = try? Realm(configuration: configuration)
         try? realm?.write({
             realm?.add(news)
         })
+    }
+    
+    func getNewsScrolling(_ nextForm: String) {
+        urlConstructor.path = "/method/newsfeed.get"
+
+        urlConstructor.queryItems = [
+            URLQueryItem(name: "start_from", value: nextForm),
+            URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "count", value: "20"),
+            URLQueryItem(name: "access_token", value: Session.shared.token),
+            URLQueryItem(name: "v", value: constants.versionAPI)
+        ]
+        
+        guard let url = urlConstructor.url else { return }
+        print(url)
+        
+        AF.request(url).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                var news = try JSONDecoder().decode(News.self, from: data).response.items
+                let profiles = try? JSONDecoder().decode(News.self, from: data).response.profiles
+                let groups = try? JSONDecoder().decode(News.self, from: data).response.groups
+                
+                for index in 0..<news.count {
+                    if news[index].sourceID < 0 {
+                        let group = groups?.first(where: { $0.id == -news[index].sourceID })
+                        news[index].avatarURL = group?.avatarURL
+                        news[index].creatorName = group?.name
+                    } else {
+                        let profile = profiles?.first(where: { $0.id == news[index].sourceID })
+                        news[index].avatarURL = profile?.avatarURL
+                        news[index].creatorName = (profile?.firstName ?? "") + (profile?.lastName ?? "")
+                    }
+                }
+
+                for index in 0..<news.count {
+                    self.realmSaveNews(data: news[index], index: index)
+                }
+                
+                NewsViewController.isLoading = false
+            } catch {
+                print(error)
+            }
+        }
     }
 }

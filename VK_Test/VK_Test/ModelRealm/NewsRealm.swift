@@ -21,8 +21,9 @@ class NewsRealm: Object {
     @objc dynamic var views = 0
     @objc dynamic var typePhoto = ""
     @objc dynamic var photo = ""
+    @objc dynamic var aspectRatio = 0.0
     
-    convenience init(sourceID: Int, name: String, avatar: String, date: Double, text: String, likes: Int, comments: Int, reposts: Int, views: Int, typePhoto: String, photo: String) {
+    convenience init(sourceID: Int, name: String, avatar: String, date: Double, text: String, likes: Int, comments: Int, reposts: Int, views: Int, typePhoto: String, photo: String, aspectRatio: CGFloat) {
         self.init()
         self.sourceID = sourceID
         self.name = name
@@ -35,6 +36,7 @@ class NewsRealm: Object {
         self.views = views
         self.typePhoto = typePhoto
         self.photo = photo
+        self.aspectRatio = aspectRatio
     }
     
 //    override class func primaryKey() -> String? {
