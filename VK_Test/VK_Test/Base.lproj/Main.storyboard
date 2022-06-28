@@ -227,6 +227,37 @@
             </objects>
             <point key="canvasLocation" x="2657.971014492754" y="468.75"/>
         </scene>
+        <!--News-->
+        <scene sceneID="Bjc-fT-Ovt">
+            <objects>
+                <viewController id="BbX-s1-mPw" customClass="NewsViewController" customModule="VK_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CJG-8M-u6y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="R6l-jc-L5A">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XHK-nq-NW3"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="R6l-jc-L5A" firstAttribute="leading" secondItem="XHK-nq-NW3" secondAttribute="leading" id="Isr-tC-zor"/>
+                            <constraint firstItem="R6l-jc-L5A" firstAttribute="top" secondItem="XHK-nq-NW3" secondAttribute="top" id="KcJ-Mg-uAs"/>
+                            <constraint firstItem="XHK-nq-NW3" firstAttribute="trailing" secondItem="R6l-jc-L5A" secondAttribute="trailing" id="caO-YF-kM1"/>
+                            <constraint firstItem="XHK-nq-NW3" firstAttribute="bottom" secondItem="R6l-jc-L5A" secondAttribute="bottom" id="kgB-qQ-4aR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="News" id="LYc-Dl-UfG"/>
+                    <connections>
+                        <outlet property="newsTableView" destination="R6l-jc-L5A" id="fC5-xU-fXG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0fY-b6-dZb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2658" y="1217"/>
+        </scene>
         <!--All Groups-->
         <scene sceneID="MCu-35-ajO">
             <objects>
@@ -403,8 +434,9 @@
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="u43-hW-DGh" kind="relationship" relationship="viewControllers" id="not-Sh-CrY"/>
+                        <segue destination="MNU-3B-0Mu" kind="relationship" relationship="viewControllers" id="R2M-7P-sXv"/>
                         <segue destination="pMx-s2-tbT" kind="relationship" relationship="viewControllers" id="lu5-nR-vzX"/>
+                        <segue destination="u43-hW-DGh" kind="relationship" relationship="viewControllers" id="not-Sh-CrY"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azL-2C-W4j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -455,8 +487,28 @@
             </objects>
             <point key="canvasLocation" x="1852" y="469"/>
         </scene>
+        <!--News-->
+        <scene sceneID="OLa-2i-M7D">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MNU-3B-0Mu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="News" id="3yi-yo-dF6">
+                        <imageReference key="image" image="heart.text.square.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="axR-Lv-5Tk">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BbX-s1-mPw" kind="relationship" relationship="rootViewController" id="2p5-gf-MSJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MIm-Z3-TCO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="1217"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="heart.text.square.fill" catalog="system" width="128" height="114"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="plus" catalog="system" width="128" height="113"/>

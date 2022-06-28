@@ -7,29 +7,43 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
 import RealmSwift
+import PromiseKit
 
 class MyGroupViewController: UIViewController {
     
-    @IBOutlet weak var myGroupTableView: UITableView!
+    private let constants = Constant()
+    private var urlConstructor = URLComponents()
     
+    @IBOutlet weak var myGroupTableView: UITableView!
     @IBOutlet weak var myGroupSearchBar: UISearchBar!
     
     let myGroupsCellIdentifier = "myGroupsCellIdentifier"
-    let host = "https://api.vk.com"
 
     var myGroupArray = [Group]()
     
+    private let service = NetworkingService()
     private lazy var groupRealm = try? Realm().objects(GroupRealm.self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getGroupsList()
+        service.getUrlGroups()
+            .get({ url in
+                print(url)
+            })
+            .then(on: DispatchQueue.global(), service.getDataGroups(_:))
+            .then(service.getParsedDataGroups(_:))
+            .then(service.getRealmGroups(_:))
+            .done(on: DispatchQueue.main) { groups in
+                self.myGroupTableView.reloadData()
+                print("Complite")
+            }.catch { error in
+                print(error)
+            }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         myGroupTableView.dataSource = self
         myGroupTableView.delegate = self
         notification()
@@ -83,58 +97,16 @@ extension MyGroupViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "My Group"
     }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.darkGray
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+    }
 }
 
 extension MyGroupViewController {
     func registerTableView() {
         myGroupTableView.register(UINib(nibName: "GroupsAndFriendsTableViewCell", bundle: nil), forCellReuseIdentifier: myGroupsCellIdentifier)
-    }
-}
-
-extension MyGroupViewController {
-    func getGroupsList() {
-        let path = "/method/groups.get"
-        
-        let parameters = [
-            "user_id": String(Session.shared.userID),
-            "extended": "1",
-            "access_token": Session.shared.token,
-            "v": "5.131"
-        ]
-        
-        AF
-            .request(host + path,
-                     method: .get,
-                     parameters: parameters)
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    let json = JSON(data)
-                    let groups = Groups(json)
-                    var i = 0
-                    for _ in groups.name {
-                        self.realmSave(data: groups, index: i)
-                        i = i + 1
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
-    }
-}
-
-extension MyGroupViewController {
-    func realmSave(data: Groups, index: Int, configuration: Realm.Configuration = FriendsListViewController.deleteIfMigration, update: Realm.UpdatePolicy = .modified) {
-        let group = GroupRealm()
-        group.name = data.name[index]
-        group.photo = data.photo[index]
-        group.id = data.id[index]
-        
-        let realm = try? Realm(configuration: configuration)
-        guard let oldGroup = realm?.objects(GroupRealm.self).filter("id == %@", data.id[index]) else { return }
-        try? realm?.write({
-            realm?.delete(oldGroup)
-            realm?.add(group)
-        })
     }
 }

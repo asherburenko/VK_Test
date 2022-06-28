@@ -11,8 +11,15 @@ class GalleryCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var fotoImageView: UIImageView!
     
+    static let identifier = "GalleryCollectionViewCellID"
+    
     func configure(image: UIImage?) {
         fotoImageView.image = image
+    }
+    
+    func configureURL(url: String) {
+        let url = URL(string: url)
+        fotoImageView.kf.setImage(with: url)
     }
     
     override func prepareForReuse() {

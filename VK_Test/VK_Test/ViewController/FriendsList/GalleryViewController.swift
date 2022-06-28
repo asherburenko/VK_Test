@@ -36,7 +36,8 @@ extension GalleryViewController: UICollectionViewDelegate {
         
         self.view.addSubview(view)
         view.addSubview(imageView)
-        imageView.image = UIImage(named: fotoArray[indexPath.item])
+        let url = URL(string: fotoArray[indexPath.item])
+        imageView.kf.setImage(with: url)
         imageView.contentMode = .scaleAspectFit
     }
 }
@@ -55,7 +56,7 @@ extension GalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: galleryIdentifier, for: indexPath) as? GalleryCollectionViewCell else {return UICollectionViewCell()}
         
-        cell.configure(image: UIImage(named: fotoArray[indexPath.item]))
+        cell.configureURL(url: fotoArray[indexPath.item])
         return cell
     }
     

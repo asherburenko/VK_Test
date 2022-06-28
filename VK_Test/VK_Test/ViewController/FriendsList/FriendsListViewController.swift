@@ -5,7 +5,6 @@
 //  Created by Александр Шербуренко on 11.02.2022.
 //
 
-// ioi
 
 import UIKit
 import Alamofire
@@ -22,11 +21,13 @@ class FriendsListViewController: UIViewController {
     
     var friendsListArray = [FriendsList]()
     
-    var dataBaseNotificationToken: NotificationToken?
-    var resultNotificationToken: NotificationToken?
-    var objectNotificationTocen: NotificationToken?
-    
+    private let service = NetworkingService()
+    static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
     private lazy var friend = try? Realm().objects(FriendRealm.self)
+    
+    private var dataBaseNotificationToken: NotificationToken?
+    private var resultNotificationToken: NotificationToken?
+    private var objectNotificationTocen: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,18 +35,18 @@ class FriendsListViewController: UIViewController {
         friendsListTableView.delegate = self
         getFriendsList()
         registerCell()
-        notification()
+        realmNotification(tableViewNotification: friendsListTableView)
         friendsListTableView.reloadData()
-    }
-    
-    @IBAction func addFriendButton(_ sender: Any) {
-        showAddFriendForm()
     }
     
     deinit {
         dataBaseNotificationToken?.invalidate()
         resultNotificationToken?.invalidate()
         objectNotificationTocen?.invalidate()
+    }
+    
+    @IBAction func addFriendButton(_ sender: Any) {
+        showAddFriendForm()
     }
 }
 
@@ -59,7 +60,9 @@ extension FriendsListViewController: UITableViewDataSource {
     
         cell.setDataFriendsList(friendsList: (friend?[indexPath.item])!, completion: {[weak self] in
             guard let self = self else {return}
-            self.performSegue(withIdentifier: self.friendsGalleryId, sender: self.friend?[indexPath.item])
+            guard let foto: FriendRealm = self.friend?[indexPath.item] else {return}
+            
+            self.performSegue(withIdentifier: self.friendsGalleryId, sender: foto.fotos)
         })
         return cell
     }
@@ -71,9 +74,11 @@ extension FriendsListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected \(friend?[indexPath.item]) friend")
+        print("selected \(String(describing: friend?[indexPath.item])) friend")
+        
+        guard let foto = self.friend?[indexPath.item] else {return}
 
-        performSegue(withIdentifier: friendsGalleryId, sender: friend?[indexPath.item])
+        performSegue(withIdentifier: friendsGalleryId, sender: foto.fotos)
     }
 }
 
@@ -82,15 +87,21 @@ extension FriendsListViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == friendsGalleryId {
             guard let destinationVC = segue.destination as? GalleryViewController,
-                  let fotoArray = sender as? [String]
+                  let foto = sender as? String
             else { return }
-            
-            destinationVC.fotoArray = fotoArray
+    
+            destinationVC.fotoArray.append(foto)
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Friends"
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.darkGray
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -110,62 +121,32 @@ extension FriendsListViewController {
 extension FriendsListViewController {
     func getFriendsList() {
         
-        let path = "/method/friends.get"
+        let queue: OperationQueue = {
+            let queue = OperationQueue()
+            queue.name = "serialQueue"
+            return queue
+        }()
         
-        let parameters = [
-            "user_id": String(Session.shared.userID),
-            "order": "random",
-            "fields": "last_name, photo_100",
-            "access_token": Session.shared.token,
-            "v": "5.131"
-        ]
+        let getAPIDataFriends = GetAPIDataFriends(host: "https://api.vk.com",
+                                                  path: "/method/friends.get",
+                                                  parameters: [
+                                        "user_id": String(Session.shared.userID),
+                                        "order": "random",
+                                        "fields": "last_name, photo_100",
+                                        "access_token": Session.shared.token,
+                                        "v": "5.131"
+                                    ])
+        let realmSaveFriends = RealmSaveFriends()
         
-        AF
-            .request(host + path,
-                     method: .get,
-                     parameters: parameters)
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    let json = JSON(data)
-                    let friends = Friends0(json)
-                    var index = 0
-                    for _ in friends.firstName {
-                        self.realmSave(data: friends, index: index)
-                        index += 1
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
+        realmSaveFriends.addDependency(getAPIDataFriends)
+        
+        queue.addOperation(getAPIDataFriends)
+        queue.addOperation(realmSaveFriends)
     }
 }
 
 extension FriendsListViewController {
-    
-    static let deleteIfMigration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-    
-    func realmSave(data: Friends0, index: Int, configuration: Realm.Configuration = deleteIfMigration, update: Realm.UpdatePolicy = .modified) {
-        let friend = FriendRealm()
-        friend.name = data.firstName[index] + " " + data.lastName[index]
-        friend.id = data.id[index]
-        friend.avatarImagePath = data.photo[index]
-        friend.fotos = "https://cdn.ananasposter.ru/image/cache/catalog/poster/travel/85/9427-1000x830.jpg"
-        friend.massadge = "Hi"
-        
-        let realm = try? Realm(configuration: configuration)
-        print(configuration.fileURL ?? "1111")
-        guard let oldFriend = realm?.objects(FriendRealm.self).filter("id == %@", data.id[index]) else { return }
-        try? realm?.write({
-            realm?.delete(oldFriend)
-            realm?.add(friend)
-        })
-    }
-}
-
-
-extension FriendsListViewController {
-    private func notification() {
+    private func realmNotification(tableViewNotification: UITableView) {
         do {
             let realm = try Realm()
            // DataBase Notification
@@ -176,10 +157,10 @@ extension FriendsListViewController {
             let friend = realm.objects(FriendRealm.self)
                 .sorted(byKeyPath: "id")
             resultNotificationToken = friend.observe({ change in
-                guard let tableView = self.friendsListTableView else { return }
+                let tableView = tableViewNotification
                 switch change {
                 case .initial(_):
-                    self.friendsListTableView.reloadData()
+                    tableViewNotification.reloadData()
                     print("initial case")
                 case let .update(_,
                              deletions,
@@ -193,7 +174,7 @@ extension FriendsListViewController {
                     tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)} ), with: .automatic)
                     tableView.reloadRows(at: modifications.map({IndexPath(row: $0, section: 0)} ), with: .automatic)
                     tableView.endUpdates()
-                    self.friendsListTableView.reloadData()
+                    tableViewNotification.reloadData()
                 case .error(let error):
                     print(error)
                 }
@@ -202,9 +183,7 @@ extension FriendsListViewController {
             print(error)
         }
     }
-}
-
-extension FriendsListViewController {
+    
     func showAddFriendForm() {
         let alertController = UIAlertController(title: "Enter Friend Id", message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in })
